@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600&display=swap" />
 
   <style>
 /* ───────────────────────────────────────────────────────────────
@@ -35,7 +35,7 @@
   --line-on-lav:    rgba(43, 21, 100, 0.18);
 
   --serif:          'Cormorant Garamond', 'Cormorant', 'Garamond', serif;
-  --sans:           'Outfit', system-ui, sans-serif;
+  --sans:           'Raleway', system-ui, sans-serif;
   --mono:           ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   --pad-x: clamp(24px, 6vw, 120px);
@@ -511,6 +511,15 @@ input, textarea, select { font-family: inherit; color: inherit; }
   max-width: 32ch; margin: 0 auto;
   line-height: 1.5;
 }
+.product-card-cta {
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--purple);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.product-card:hover .product-card-cta { opacity: 1; }
 
 /* ─────────────────────────────────────────────────────────────
    BRIDES — horizontal scroller of bride portraits
@@ -529,7 +538,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .bride-card {
   display: flex; flex-direction: column;
   gap: 16px;
-  cursor: pointer;
+  cursor: default;
   font-family: inherit; color: inherit;
   background: transparent;
   border: none; padding: 0;
@@ -1197,7 +1206,7 @@ const I18N = {
       steps: [
         { num: 'I', name: 'Lični blagoslov', body: 'Violeta sama, u tišini ateljea, izgovara molitvu i daje lični blagoslov vama, vašem partneru, i vašem zajedničkom putu.' },
         { num: 'II', name: 'Pevana himna', body: 'Dok se buket pravi, Himna ljubavi (1. Kor. 13) se peva i izgovara nad cvećem — svaka latica utkana je sa rečima ljubavi.' },
-        { num: 'III', name: 'Završni blagoslov', body: 'Odobren od strane duhovnog Oca — uz svaki buket koji nastaje u ateljeu, tiho se izgovara Isusova molitva, utkana u svaku laticu kao večna zaštita.' },
+        { num: 'III', name: 'Završni blagoslov', body: 'Po blagoslovu duhovnog Oca, uz svaki buket koji nastaje u ateljeu tiho se izgovara Isusova molitva — utkana u svaki detalj buketa, za večnu ljubav i blage vesti.' },
       ],
     },
     testimonials: {
@@ -1239,7 +1248,7 @@ const I18N = {
       location_l: 'Atelje', location_v: 'Beograd, Srbija',
       phone_l: 'Telefon', phone_v: '063 807 3321',
       hours_l: 'Termini', hours_v: 'Po dogovoru · pon — sub',
-      cta: 'Zovite, javljam se.',
+      cta: 'Javite se, tu sam za vas.',
     },
     foot: {
       tag: 'Modni atelje Violeta',
@@ -1311,7 +1320,7 @@ const I18N = {
       steps: [
         { num: 'I', name: 'Personal blessing', body: 'Violeta herself, in the silence of the atelier, speaks the prayer and gives a personal blessing to you, your partner, and the path you share.' },
         { num: 'II', name: 'Sung hymn', body: 'As the bouquet is built, the Hymn of Love (1 Cor. 13) is sung and spoken over the flowers — every petal woven with words of love.' },
-        { num: 'III', name: 'Final blessing', body: 'Given with the approval of a spiritual father — as every bouquet is made, the Jesus Prayer is quietly spoken over it, woven into each petal as an eternal protection.' },
+        { num: 'III', name: 'Final blessing', body: 'With the blessing of a spiritual father, the Jesus Prayer is quietly spoken over every bouquet made in the atelier — woven into every detail, for eternal love and gentle tidings.' },
       ],
     },
     testimonials: {
@@ -1348,7 +1357,7 @@ const I18N = {
       location_l: 'Atelier', location_v: 'Belgrade, Serbia',
       phone_l: 'Phone', phone_v: '063 807 3321',
       hours_l: 'Hours', hours_v: 'By appointment · Mon – Sat',
-      cta: 'Call — I will answer.',
+      cta: 'Reach out — I am here for you.',
     },
     foot: {
       tag: 'Atelier Violeta',
@@ -1813,9 +1822,6 @@ function Site() {
   const { t, lang, setLang, other } = useLang();
   const { on: audioOn, toggle: toggleAudio } = useHymn();
 
-  const [bouquetIdx, setBouquetIdx] = React.useState(null);
-  const [brideIdx,   setBrideIdx]   = React.useState(null);
-
   const bouquetItems = BOUQUETS.map((b) => ({
     id: b.id, src: b.src, num: b.num,
     name: (b[lang] || b.sr).name,
@@ -1825,9 +1831,6 @@ function Site() {
     id: b.id, src: b.src,
     caption: (b[lang] || b.sr).caption,
     place: (b[lang] || b.sr).place,
-  }));
-  const brideLightboxItems = brideItems.map((b) => ({
-    src: b.src, name: b.caption, desc: b.place,
   }));
 
   const scrollTo = (anchor) => (e) => {
@@ -1950,7 +1953,7 @@ function Site() {
           cardWidth={360}
           gap={24}
           ariaLabel={t.gallery.eyebrow}
-          onItemClick={(i) => setBouquetIdx(i)}
+          onItemClick={() => document.querySelector('#inquiry')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           renderItem={(b) => (
             <div className="product-card">
               <div className="product-card-tile">
@@ -1960,11 +1963,11 @@ function Site() {
                 <div className="product-card-num">№ {b.num}</div>
                 <div className="product-card-name">{b.name}</div>
                 <p className="product-card-desc">{b.desc}</p>
+                <div className="product-card-cta">{lang === 'sr' ? 'Pošaljite upit →' : 'Send inquiry →'}</div>
               </div>
             </div>
           )}
         />
-        <Lightbox items={bouquetItems} openIdx={bouquetIdx} onClose={() => setBouquetIdx(null)} />
       </section>
 
       {/* Brides */}
@@ -1983,7 +1986,6 @@ function Site() {
           cardWidth={320}
           gap={24}
           ariaLabel={t.brides.eyebrow}
-          onItemClick={(i) => setBrideIdx(i)}
           renderItem={(b) => (
             <div className="bride-card">
               <div className="bride-card-frame">
@@ -1994,7 +1996,6 @@ function Site() {
             </div>
           )}
         />
-        <Lightbox items={brideLightboxItems} openIdx={brideIdx} onClose={() => setBrideIdx(null)} />
       </section>
 
       {/* Blessing — three pillars: quote · hymn · rite */}
