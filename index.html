@@ -196,6 +196,23 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .icon-btn.on {
   background: var(--purple); color: #fff; border-color: var(--purple);
 }
+.lang-switch {
+  display: flex; gap: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lang-btn {
+  background: transparent; border: none;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 7px 11px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.lang-btn:hover { color: var(--purple); }
+.lang-btn.on { background: var(--purple); color: #fff; }
 .icon-btn .pulse {
   width: 6px; height: 6px; border-radius: 50%;
   background: currentColor; opacity: .8;
@@ -992,7 +1009,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
 .ctc-h h2 .alt { display: block; }
 .ctc-h .ornament { color: var(--lavender-deep); }
 .ctc-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   max-width: 1240px; margin: 0 auto;
   padding-top: 40px;
@@ -1099,8 +1116,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
   .nav { display: none; }
   .story-grid { grid-template-columns: 1fr; gap: 40px; }
   .story-portrait { max-width: 360px; margin: 0 auto; }
-  .svc-grid, .tst-grid { grid-template-columns: 1fr; }
-  .ctc-grid { grid-template-columns: 1fr 1fr; }
+  .svc-grid, .tst-grid, .ctc-grid { grid-template-columns: 1fr; }
   .inq-fields { grid-template-columns: 1fr; }
   .field.wide { grid-column: span 1; }
   .scroller-arr-l { left: 8px; }
@@ -1246,6 +1262,9 @@ const I18N = {
       delivery_l: 'Besplatna dostava',
       delivery_v: 'Karaburma · Mirijevo · Višnjica · Višnjička Banja',
       delivery_n: 'Ostali delovi Beograda — po dogovoru.',
+      intl_l: 'Međunarodna dostava',
+      intl_v: 'Rusija · Crna Gora · Hrvatska · Slovenija · SAD · EU · UK',
+      intl_n: 'Po dogovoru — konsultacija obavezna.',
       location_l: 'Atelje', location_v: 'Beograd, Srbija',
       phone_l: 'Telefon', phone_v: '063 807 3321',
       hours_l: 'Termini', hours_v: 'Po dogovoru · pon — sub',
@@ -1355,6 +1374,9 @@ const I18N = {
       delivery_l: 'Free delivery',
       delivery_v: 'Karaburma · Mirijevo · Višnjica · Višnjička Banja',
       delivery_n: 'Other parts of Belgrade — on request.',
+      intl_l: 'International delivery',
+      intl_v: 'Russia · Montenegro · Croatia · Slovenia · USA · EU · UK',
+      intl_n: 'By arrangement — consultation required.',
       location_l: 'Atelier', location_v: 'Belgrade, Serbia',
       phone_l: 'Phone', phone_v: '063 807 3321',
       hours_l: 'Hours', hours_v: 'By appointment · Mon – Sat',
@@ -1366,14 +1388,128 @@ const I18N = {
       audio_on: 'Quiet hymn', audio_off: 'No sound',
     },
   },
+
+  ru: {
+    nav: {
+      story: 'Ателье', services: 'Услуги', gallery: 'Галерея',
+      blessing: 'Благословение', contact: 'Контакт',
+      book: 'Записаться на консультацию',
+    },
+    hero: {
+      eyebrow: 'Модный ателье · Белград',
+      headline_a: 'Каждый день особенный,',
+      headline_b: 'но этот помнится вечно.',
+      sub: 'Уникальные букеты-бидермайеры ручной работы из шёлковых цветов и свадебное оформление — сотканные с любовью, традицией и духовностью.',
+      cta: 'Выберите букет своей мечты', cta_alt: 'Посмотреть предложения',
+    },
+    story: {
+      eyebrow: 'Об ателье',
+      title_a: 'Сочетание мирового опыта',
+      title_b: 'и белградской души.',
+      lede: 'Прежде чем родится ваш совершенный букет, в нашем ателье звучит тихий свет Иисусовой молитвы и Гимна любви. Создавая, мы вкладываем в каждый лепесток веру, силу и духовность, которую несём в себе с самого начала.',
+      body: 'Наша работа вдохновлена годами опыта, приобретёнными в сотрудничестве с ведущими мировыми домами моды — Ralph Lauren и Tommy Hilfiger — прежде чем вернуться домой в Белград, город, встречающий всех с открытыми объятиями. Я хотела принести это мастерство моим дорогим невестам и воплотить его в уникальных творениях, которые отметят ваш самый важный день.',
+      sig: '— Виолета',
+      pills: ['Нью-Йорк', 'Милан', 'Белград'],
+    },
+    services: {
+      eyebrow: 'Услуги',
+      title_a: 'Три способа',
+      title_b: 'украсить ваш день.',
+      items: [
+        { tag: '01', name: 'Современные букеты', short: 'Букет из шёлковых цветов', body: 'Роскошные букеты из высококачественных шёлковых цветов, созданные вручную в диалоге с невестой. Мы вместе выбираем разновидность и точный оттенок, пока букет не станет по-настоящему вашим.', meta: 'по запросу' },
+        { tag: '02', name: 'Свадебное оформление', short: 'Полное оформление зала', body: 'Полное элегантное свадебное оформление по всему Белграду — адаптированное к вашему видению и стилю. Всё — от цветочных композиций на столах до свадебной арки.', meta: 'по запросу' },
+        { tag: '03', name: 'Домашний декор', short: 'Композиции для дома', body: 'Уникальные цветочные композиции, привносящие тепло, элегантность и утончённость в повседневное пространство. Созданы на долгое время — как воспоминания.', meta: 'по запросу' },
+      ],
+    },
+    gallery: {
+      eyebrow: 'Наши букеты', title_a: 'Ручной работы', title_b: 'букеты для вас.',
+      sub: 'Каждый уникален — создан в тишине ателье, с молитвой и заботой, вложенными в каждый лепесток.',
+    },
+    brides: {
+      eyebrow: 'Наши невесты', title_a: 'День, который', title_b: 'помнится вечно.',
+      sub: 'Моменты из нашего ателье — невесты с их букетами.',
+    },
+    blessing: {
+      eyebrow: 'Благословение', open: '«',
+      body: 'Дорогие невесты — пусть в вашей совместной жизни вы получаете только мягкие и прекрасные вести, и пусть каждый совместный день будет вечным и особенным, как этот цветочный букет.',
+      close: '»', sig: 'Модный ателье Виолета',
+    },
+    hymn: {
+      eyebrow: 'Гимн любви · 1 Кор. 13',
+      title: 'Гимн любви',
+      stanzas: [
+        'Если я говорю языками человеческими и ангельскими, а любви не имею, то я — медь звенящая или кимвал звучащий. Если имею дар пророчества, и знаю все тайны, и имею всякое познание и всю веру, так что могу и горы переставлять, а не имею любви, — то я ничто. И если я раздам всё имение моё и отдам тело моё на сожжение, а любви не имею, нет мне в том никакой пользы.',
+        'Любовь долготерпит, милосердствует, любовь не завидует, любовь не превозносится, не гордится, не бесчинствует, не ищет своего, не раздражается, не мыслит зла, не радуется неправде, а сорадуется истине; всё покрывает, всему верит, всего надеется, всё переносит.',
+        'Любовь никогда не перестаёт, хотя и пророчества прекратятся, и языки умолкнут, и знание упразднится. Ибо мы отчасти знаем, и отчасти пророчествуем; когда же настанет совершенное, тогда то, что отчасти, прекратится. Когда я был младенцем, то по-младенчески говорил, по-младенчески мыслил, по-младенчески рассуждал; а как стал мужем, то оставил младенческое. Теперь мы видим как бы сквозь тусклое стекло, гадательно, тогда же лицем к лицу; теперь знаю я отчасти, а тогда познаю, подобно как я познан.',
+      ],
+      coda: 'А теперь пребывают сии три: вера, надежда, любовь; но любовь из них больше.',
+      attribution: '— Апостол Павел, 1-е Коринфянам 13',
+    },
+    process: {
+      eyebrow: 'Наш обряд',
+      title_a: 'Три благословения',
+      title_b: 'до того, как букет встретит невесту.',
+      sub: 'Что отличает это ателье — каждый букет проходит через три тихие церемонии, прежде чем попасть в ваши руки.',
+      steps: [
+        { num: 'I', name: 'Личное благословение', body: 'Виолета сама, в тишине ателье, произносит молитву и даёт личное благословение вам, вашему партнёру и пути, который вы разделите.' },
+        { num: 'II', name: 'Воспетый гимн', body: 'Пока создаётся букет, Гимн любви (1 Кор. 13) поётся и произносится над цветами — каждый лепесток соткан словами любви.' },
+        { num: 'III', name: 'Окончательное благословение', body: 'По благословению духовного отца, над каждым букетом, создаваемым в ателье, тихо произносится Иисусова молитва — вплетённая в каждую деталь, для вечной любви и благих вестей.' },
+      ],
+    },
+    testimonials: {
+      eyebrow: 'Невесты о нас',
+      items: [
+        { q: 'Букет был тёплым сердцем этого дня. Девушки до сих пор помнят эти цвета.', who: 'Мария и Стефан', where: 'Белград · 2024' },
+        { q: 'Виолета поняла то, что я не могла выразить словами. Ателье — настоящее маленькое святилище.', who: 'Елена', where: 'Земун · 2023' },
+        { q: 'Деталь ручной работы, заметная на каждой фотографии. Благодарю вас.', who: 'Аня и Марко', where: 'Дединье · 2025' },
+      ],
+    },
+    inquiry: {
+      eyebrow: 'Консультация', title_a: 'Давайте', title_b: 'познакомимся.',
+      sub: 'Три коротких шага. Отвечаю лично в течение 24 часов.',
+      step: 'Шаг', of: 'из',
+      steps: ['Вы и ваш любимый', 'Детали свадьбы', 'Ваше видение'],
+      f: {
+        name: 'Ваше имя', partner: 'Имя партнёра', email: 'Эл. почта', phone: 'Телефон',
+        date: 'Дата свадьбы', guests: 'Количество гостей', venue: 'Место / зал',
+        package: 'Что вас интересует',
+        packageOpts: ['Букет', 'Свадебное оформление', 'Обе услуги', 'Ещё не уверена'],
+        budget: 'Примерный бюджет',
+        budgetOpts: ['до 30 000 RSD', '30 000 — 80 000 RSD', '80 000 — 200 000 RSD', 'Открыт'],
+        note: 'Ваша история (несколько строк)', notePh: 'Цвета, цветок, место, атмосфера — пишите свободно…',
+      },
+      back: 'Назад', next: 'Далее', submit: 'Отправить пожелание',
+      done_a: 'Спасибо.', done_b: 'Готовим ответ с заботой.',
+      done_sub: 'Отвечаю лично в течение 24 часов. А пока — пусть всё будет с радостью.',
+    },
+    contact: {
+      eyebrow: 'Контакт и доставка', title_a: 'Личная доставка', title_b: 'к вашим дверям.',
+      delivery_l: 'Бесплатная доставка',
+      delivery_v: 'Карабурма · Мириево · Вишница · Вишничка Баня',
+      delivery_n: 'Другие районы Белграда — по договорённости.',
+      intl_l: 'Международная доставка',
+      intl_v: 'Россия · Черногория · Хорватия · Словения · США · ЕС · Великобритания',
+      intl_n: 'По договорённости — консультация обязательна.',
+      location_l: 'Ателье', location_v: 'Белград, Сербия',
+      phone_l: 'Телефон', phone_v: '063 807 3321',
+      hours_l: 'Часы работы', hours_v: 'По записи · пн — сб',
+      cta: 'Напишите мне — я здесь для вас.',
+    },
+    foot: {
+      tag: 'Модный ателье Виолета',
+      copy: '© 2026 Модный ателье Виолета · Белград',
+      audio_on: 'Тихий гимн', audio_off: 'Без звука',
+    },
+  },
 };
 
+const LANGS = ['sr', 'en', 'ru'];
 const LangCtx = React.createContext({ lang: 'sr', setLang: () => {}, t: I18N.sr });
 
 function LangProvider({ children }) {
   const [lang, setLang] = React.useState('sr');
   const value = React.useMemo(
-    () => ({ lang, setLang, t: I18N[lang], other: lang === 'sr' ? 'EN' : 'SR' }),
+    () => ({ lang, setLang, t: I18N[lang] }),
     [lang],
   );
   return <LangCtx.Provider value={value}>{children}</LangCtx.Provider>;
@@ -1486,7 +1622,7 @@ function formatDate(d, lang) {
   if (!d) return '';
   const dt = new Date(d);
   if (isNaN(dt)) return d;
-  return dt.toLocaleDateString(lang === 'sr' ? 'sr-Latn-RS' : 'en-GB', {
+  return dt.toLocaleDateString(lang === 'ru' ? 'ru-RU' : lang === 'sr' ? 'sr-Latn-RS' : 'en-GB', {
     day: 'numeric', month: 'long', year: 'numeric',
   });
 }
@@ -1699,7 +1835,7 @@ function InquiryForm() {
                 <div className="inq-fields">
                   <Field label={f.name} required>
                     <input value={data.name} onChange={(e) => upd('name', e.target.value)}
-                      placeholder={lang === 'sr' ? 'Marija' : 'Maria'} />
+                      placeholder={lang === 'ru' ? 'Мария' : lang === 'sr' ? 'Marija' : 'Maria'} />
                   </Field>
                   <Field label={f.partner}>
                     <input value={data.partner} onChange={(e) => upd('partner', e.target.value)} placeholder="Stefan" />
@@ -1723,7 +1859,7 @@ function InquiryForm() {
                   </Field>
                   <Field label={f.venue} required wide>
                     <input value={data.venue} onChange={(e) => upd('venue', e.target.value)}
-                      placeholder={lang === 'sr' ? 'Salon, restoran, mesto…' : 'Venue, restaurant, place…'} />
+                      placeholder={lang === 'ru' ? 'Зал, ресторан, место…' : lang === 'sr' ? 'Salon, restoran, mesto…' : 'Venue, restaurant, place…'} />
                   </Field>
                   <Field label={f.package} wide>
                     <div className="inq-radios">
@@ -1758,15 +1894,13 @@ function InquiryForm() {
 
               {touched[step] && !stepValid(step) && (
                 <div className="inq-error">
-                  {lang === 'sr' ? 'Molim popunite obavezna polja (označena *).' : 'Please complete the required fields (marked *).'}
+                  {lang === 'ru' ? 'Пожалуйста, заполните обязательные поля (отмечены *).' : lang === 'sr' ? 'Molim popunite obavezna polja (označena *).' : 'Please complete the required fields (marked *).'}
                 </div>
               )}
 
               {sendErr && (
                 <div className="inq-error">
-                  {lang === 'sr'
-                    ? 'Nešto je pošlo po krivu. Pokušajte ponovo ili nas pozovite.'
-                    : 'Something went wrong. Please try again or call us directly.'}
+                  {lang === 'ru' ? 'Что-то пошло не так. Попробуйте ещё раз или позвоните нам.' : lang === 'sr' ? 'Nešto je pošlo po krivu. Pokušajte ponovo ili nas pozovite.' : 'Something went wrong. Please try again or call us directly.'}
                 </div>
               )}
 
@@ -1798,7 +1932,7 @@ function InquiryForm() {
             </dl>
             <button type="button" className="btn btn-ghost"
               onClick={() => { setDone(false); setStep(0); }}>
-              {lang === 'sr' ? '← Pošaljite još jednu' : '← Send another'}
+              {lang === 'ru' ? '← Отправить ещё одну' : lang === 'sr' ? '← Pošaljite još jednu' : '← Send another'}
             </button>
           </div>
         )}
@@ -1820,7 +1954,7 @@ function Field({ label, required, wide, children }) {
 
 // ─── Site ─────────────────────────────────────────────────────────────────────
 function Site() {
-  const { t, lang, setLang, other } = useLang();
+  const { t, lang, setLang } = useLang();
   const { on: audioOn, toggle: toggleAudio } = useHymn();
 
   const bouquetItems = BOUQUETS.map((b) => ({
@@ -1847,7 +1981,9 @@ function Site() {
       <header className="topbar">
         <a className="brand" href="#hero" onClick={scrollTo('#hero')}>
           <span className="brand-mark">Violeta</span>
-          <span className="brand-name">{lang === 'sr' ? 'Modni atelje · Beograd' : 'Atelier · Belgrade'}</span>
+          <span className="brand-name">
+            {lang === 'sr' ? 'Modni atelje · Beograd' : lang === 'ru' ? 'Модный ателье · Белград' : 'Atelier · Belgrade'}
+          </span>
         </a>
         <nav className="nav">
           <a href="#story"      onClick={scrollTo('#story')}>{t.nav.story}</a>
@@ -1862,9 +1998,13 @@ function Site() {
             aria-label={audioOn ? t.foot.audio_on : t.foot.audio_off}>
             <span className="pulse" />♪
           </button>
-          <button className="icon-btn" onClick={() => setLang(lang === 'sr' ? 'en' : 'sr')}>
-            {lang.toUpperCase()} / {other}
-          </button>
+          <div className="lang-switch">
+            {LANGS.map((l) => (
+              <button key={l} className={`lang-btn ${lang === l ? 'on' : ''}`} onClick={() => setLang(l)}>
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
           <button className="top-cta" onClick={scrollTo('#inquiry')}>{t.nav.book}</button>
         </div>
       </header>
@@ -1964,7 +2104,7 @@ function Site() {
                 <div className="product-card-num">№ {b.num}</div>
                 <div className="product-card-name">{b.name}</div>
                 <p className="product-card-desc">{b.desc}</p>
-                <div className="product-card-cta">{lang === 'sr' ? 'Pošaljite upit →' : 'Send inquiry →'}</div>
+                <div className="product-card-cta">{lang === 'ru' ? 'Отправить запрос →' : lang === 'sr' ? 'Pošaljite upit →' : 'Send inquiry →'}</div>
               </div>
             </div>
           )}
@@ -2083,6 +2223,11 @@ function Site() {
             <div className="ctc-label">{t.contact.delivery_l}</div>
             <div className="ctc-value">{t.contact.delivery_v}</div>
             <div className="ctc-note">{t.contact.delivery_n}</div>
+          </div>
+          <div className="ctc-card">
+            <div className="ctc-label">{t.contact.intl_l}</div>
+            <div className="ctc-value" style={{ fontSize: '17px', lineHeight: '1.6' }}>{t.contact.intl_v}</div>
+            <div className="ctc-note">{t.contact.intl_n}</div>
           </div>
           <div className="ctc-card">
             <div className="ctc-label">{t.contact.location_l}</div>
