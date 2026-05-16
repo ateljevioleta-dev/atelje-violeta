@@ -1,0 +1,2108 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atelje Violeta · Beograd</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" />
+
+  <style>
+/* ───────────────────────────────────────────────────────────────
+   Atelje Violeta — single-page styles
+   Aesthetic: orthodox-cozy, formal symmetry, lavender + deep
+   purple, no iconography. Type echoes the "Buket" tile font
+   (Cormorant Garamond, light italic for emotional headlines).
+   ─────────────────────────────────────────────────────────────── */
+
+:root {
+  --lavender-bg:    #d9cafb;
+  --lavender-mid:   #c5b5ec;
+  --lavender-soft:  #ecdffa;
+  --lavender-pale:  #f5edfd;
+  --lavender-deep:  #9a87c4;
+  --purple:         #2b1564;
+  --purple-2:       #1d0d4a;
+  --ink:            #1f0d4a;
+  --ink-soft:       #5e4e7d;
+  --ink-faint:      rgba(31, 13, 74, 0.55);
+  --cream:          #faf7fb;
+  --paper:          #ffffff;
+  --line:           rgba(31, 13, 74, 0.16);
+  --line-soft:      rgba(31, 13, 74, 0.08);
+  --line-on-lav:    rgba(43, 21, 100, 0.18);
+
+  --serif:          'Cormorant Garamond', 'Cormorant', 'Garamond', serif;
+  --sans:           'Outfit', system-ui, sans-serif;
+  --mono:           ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --pad-x: clamp(24px, 6vw, 120px);
+  --pad-y: clamp(72px, 12vw, 160px);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 15.5px;
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+input, textarea, select { font-family: inherit; color: inherit; }
+
+/* ───── Utility ───── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: inline-block;
+}
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.005em;
+  line-height: 1.02;
+  color: var(--purple);
+}
+.display em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--purple);
+}
+.lede {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: 0;
+}
+.rule {
+  width: 56px; height: 1px; background: var(--purple);
+  margin: 24px auto;
+}
+.rule-w { background: rgba(255,255,255,0.6); }
+
+.ornament {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px;
+  margin: 36px auto;
+  color: var(--purple);
+  opacity: 0.7;
+}
+.ornament::before,
+.ornament::after {
+  content: ''; height: 1px; width: 48px; background: currentColor; opacity: 0.4;
+}
+.ornament svg { display: block; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: none; cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  padding: 16px 26px;
+  border-radius: 999px;
+  transition: transform .2s, background .25s, color .25s, border-color .25s, box-shadow .25s;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--purple);
+  color: #fff;
+  box-shadow: 0 2px 0 var(--purple-2), 0 10px 24px rgba(43, 21, 100, 0.18);
+}
+.btn-primary:hover { background: var(--purple-2); transform: translateY(-1px); box-shadow: 0 4px 0 var(--purple-2), 0 14px 30px rgba(43, 21, 100, 0.22); }
+.btn-ghost {
+  background: transparent; color: var(--purple);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover { border-color: var(--purple); color: var(--purple-2); }
+
+/* ───── Topbar ───── */
+.topbar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center;
+  padding: 18px var(--pad-x);
+  background: color-mix(in oklab, var(--cream), transparent 6%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-soft);
+}
+.brand {
+  display: flex; align-items: baseline; gap: 14px;
+  text-decoration: none; color: inherit;
+}
+.brand-mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  letter-spacing: -0.005em;
+  color: var(--purple);
+  line-height: 1;
+}
+.brand-name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.nav {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 26px;
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.nav a {
+  color: inherit; text-decoration: none; cursor: pointer;
+  padding: 4px 0; position: relative;
+}
+.nav a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -4px;
+  height: 1px; background: var(--purple);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s;
+}
+.nav a:hover { color: var(--purple); }
+.nav a:hover::after { transform: scaleX(1); }
+
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.icon-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.icon-btn:hover { border-color: var(--purple); color: var(--purple); }
+.icon-btn.on {
+  background: var(--purple); color: #fff; border-color: var(--purple);
+}
+.icon-btn .pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor; opacity: .8;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.icon-btn:not(.on) .pulse { animation: none; opacity: .35; }
+@keyframes pulse { 0%, 100% { transform: scale(.7); opacity: .35; } 50% { transform: scale(1.1); opacity: 1; } }
+
+.top-cta {
+  background: var(--purple); color: #fff;
+  border: none; border-radius: 999px;
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.top-cta:hover { background: var(--purple-2); transform: translateY(-1px); }
+
+/* petal layer */
+.petal {
+  position: absolute; pointer-events: none;
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(var(--rot));
+  animation: petal-fall 1.6s ease-out forwards;
+}
+@keyframes petal-fall {
+  0% { transform: translate(0, 0) rotate(var(--rot)); opacity: 0.55; }
+  100% { transform: translate(var(--dx), -40px) rotate(calc(var(--rot) * 2)); opacity: 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HERO
+   ───────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding: clamp(48px, 6vw, 80px) var(--pad-x) clamp(48px, 6vw, 80px);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(154, 135, 196, 0.25), transparent 60%),
+    linear-gradient(180deg, var(--lavender-pale) 0%, var(--cream) 100%);
+  text-align: center;
+  overflow: hidden;
+}
+.hero-folio {
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+.hero-folio::before, .hero-folio::after { content: '·'; margin: 0 14px; opacity: .55; }
+.hero-headline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(48px, 7.2vw, 110px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+  color: var(--purple);
+  max-width: 18ch;
+  margin: 0 auto 28px;
+}
+.hero-headline em {
+  font-style: italic;
+  font-weight: 400;
+  display: block;
+  color: var(--purple);
+}
+.hero-headline .alt {
+  display: block;
+  color: var(--purple);
+}
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: 0 auto 40px;
+}
+.hero-cta-row {
+  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 56px;
+}
+.hero-tile {
+  position: relative;
+  width: clamp(280px, 50vw, 640px);
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  background: var(--lavender-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow:
+    0 30px 80px rgba(43, 21, 100, 0.22),
+    0 0 0 1px var(--line-on-lav) inset;
+}
+.hero-tile::after {
+  content: '';
+  position: absolute; inset: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+.hero-tile img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero-tag {
+  margin-top: 36px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--purple);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STORY
+   ───────────────────────────────────────────────────────────── */
+.story {
+  padding: var(--pad-y) var(--pad-x);
+  background: var(--cream);
+}
+.story-h {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 56px;
+}
+.story-h .eyebrow { margin-bottom: 20px; }
+.story-h h2 {
+  font-size: clamp(36px, 4.5vw, 64px);
+  margin: 0;
+  text-wrap: balance;
+}
+.story-h h2 em { display: block; }
+.story-h h2 .alt { display: block; }
+.story-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.story-portrait {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 200px 200px 4px 4px;
+  background: var(--lavender-bg);
+  overflow: hidden;
+  box-shadow: 0 16px 50px rgba(43, 21, 100, 0.14), 0 0 0 1px var(--line-on-lav) inset;
+}
+.story-portrait::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border-radius: 192px 192px 2px 2px;
+  border: 1px solid rgba(255,255,255,0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+.story-portrait img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+  z-index: 1;
+}
+.story-text { color: var(--ink); }
+.story-text p { font-size: 17px; line-height: 1.7; margin: 0; }
+.story-text p + p { margin-top: 18px; }
+.story-text .lead-cap {
+  float: left;
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 84px; line-height: 0.85;
+  color: var(--purple);
+  padding: 6px 14px 0 0;
+}
+.story-sig {
+  margin-top: 32px;
+  font-family: var(--serif); font-style: italic;
+  font-size: 24px; color: var(--purple);
+}
+.story-pills {
+  margin-top: 28px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.story-pill {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  padding: 7px 14px;
+  background: var(--lavender-soft); color: var(--purple);
+  border-radius: 999px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SERVICES
+   ───────────────────────────────────────────────────────────── */
+.svc {
+  padding: var(--pad-y) var(--pad-x);
+  background: var(--lavender-soft);
+}
+.svc-h { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+.svc-h h2 { font-size: clamp(36px, 4.5vw, 60px); margin: 16px 0 0; }
+.svc-h h2 em { display: block; }
+.svc-h h2 .alt { display: block; }
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.svc-card {
+  background: var(--paper);
+  padding: 40px 32px;
+  display: flex; flex-direction: column; gap: 16px;
+  border-radius: 6px;
+  box-shadow: 0 1px 0 var(--line-soft), 0 14px 40px rgba(43, 21, 100, 0.06);
+  transition: transform .25s, box-shadow .25s;
+}
+.svc-card:hover { transform: translateY(-3px); box-shadow: 0 1px 0 var(--line-soft), 0 20px 50px rgba(43, 21, 100, 0.10); }
+.svc-card-tag {
+  font-family: var(--serif); font-style: italic;
+  font-size: 26px; color: var(--lavender-deep);
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 8px;
+}
+.svc-card-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 32px; line-height: 1.05; margin: 0;
+  color: var(--purple);
+  letter-spacing: -0.005em;
+}
+.svc-card-short {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.svc-card-body { color: var(--ink-soft); font-size: 14.5px; line-height: 1.65; flex: 1; }
+.svc-card-meta {
+  font-family: var(--serif); font-style: italic;
+  font-size: 20px; color: var(--purple);
+  border-top: 1px solid var(--line-soft);
+  padding-top: 14px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   COLLECTION — horizontal scroller of product tiles
+   ───────────────────────────────────────────────────────────── */
+.coll {
+  padding: var(--pad-y) 0;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.coll-h { text-align: center; max-width: 760px; margin: 0 auto 56px; padding: 0 var(--pad-x); }
+.coll-h h2 { font-size: clamp(36px, 4.5vw, 60px); margin: 16px 0 0; }
+.coll-h h2 em { display: block; }
+.coll-h h2 .alt { display: block; }
+
+.product-card {
+  display: flex; flex-direction: column;
+  gap: 18px;
+  cursor: pointer;
+  font-family: inherit; color: inherit;
+  text-align: center;
+  background: transparent;
+  border: none; padding: 0;
+  width: 100%;
+}
+.product-card-tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: var(--lavender-bg);
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(43, 21, 100, 0.12), 0 0 0 1px var(--line-on-lav) inset;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.product-card:hover .product-card-tile {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 56px rgba(43, 21, 100, 0.20), 0 0 0 1px var(--line-on-lav) inset;
+}
+.product-card-tile::after {
+  content: '';
+  position: absolute; inset: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.5);
+  pointer-events: none;
+  z-index: 2;
+}
+.product-card-tile img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.product-card-meta { padding: 0 8px; }
+.product-card-num {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 8px;
+}
+.product-card-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 28px; line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--purple);
+  margin: 0 0 6px;
+}
+.product-card-desc {
+  font-size: 14px; color: var(--ink-soft);
+  max-width: 32ch; margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BRIDES — horizontal scroller of bride portraits
+   ───────────────────────────────────────────────────────────── */
+.brides {
+  padding: var(--pad-y) 0;
+  background: var(--lavender-soft);
+  overflow: hidden;
+  position: relative;
+}
+.brides-h { text-align: center; max-width: 760px; margin: 0 auto 56px; padding: 0 var(--pad-x); }
+.brides-h h2 { font-size: clamp(36px, 4.5vw, 60px); margin: 16px 0 0; }
+.brides-h h2 em { display: block; }
+.brides-h h2 .alt { display: block; }
+
+.bride-card {
+  display: flex; flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+  font-family: inherit; color: inherit;
+  background: transparent;
+  border: none; padding: 0;
+  width: 100%;
+  text-align: center;
+}
+.bride-card-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--lavender-bg);
+  box-shadow: 0 16px 44px rgba(43, 21, 100, 0.18), 0 0 0 1px var(--line-on-lav) inset;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.bride-card:hover .bride-card-frame {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 56px rgba(43, 21, 100, 0.24), 0 0 0 1px var(--line-on-lav) inset;
+}
+.bride-card-frame::after {
+  content: '';
+  position: absolute; inset: 12px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.32);
+  pointer-events: none;
+  z-index: 2;
+}
+.bride-card-frame img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.bride-card-caption {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--purple);
+  margin: 0;
+}
+.bride-card-place {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Generic horizontal Scroller framework
+   ───────────────────────────────────────────────────────────── */
+.scroller {
+  position: relative;
+}
+.scroller-track {
+  display: flex;
+  gap: var(--gap, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 8px clamp(24px, 8vw, 160px);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.scroller-track::-webkit-scrollbar { display: none; }
+.scroller-card {
+  flex: 0 0 var(--card-w, 360px);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.scroller-arr {
+  position: absolute;
+  top: calc(50% - 36px);
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--purple);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(43, 21, 100, 0.12);
+  transition: background .2s, color .2s, border-color .2s, opacity .2s, transform .15s;
+}
+.scroller-arr:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
+.scroller-arr:active { transform: translateY(-50%) scale(0.96); }
+.scroller-arr.is-disabled { opacity: 0; pointer-events: none; }
+.scroller-arr-l { left: clamp(12px, 4vw, 96px); }
+.scroller-arr-r { right: clamp(12px, 4vw, 96px); }
+
+.scroller-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+.scroller-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line);
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s, transform .2s;
+}
+.scroller-dot:hover { background: var(--lavender-deep); }
+.scroller-dot.on { background: var(--purple); transform: scale(1.3); }
+
+/* ─────────────────────────────────────────────────────────────
+   BLESSING — quote · hymn · rite (three pillars)
+   ───────────────────────────────────────────────────────────── */
+.bless {
+  padding: clamp(96px, 14vw, 180px) var(--pad-x);
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(154, 135, 196, 0.25), transparent 60%),
+    var(--lavender-mid);
+  text-align: center;
+  position: relative;
+}
+.bless-inner {
+  max-width: 880px; margin: 0 auto;
+  position: relative;
+  padding: 0 16px;
+}
+.bless .eyebrow { color: var(--purple); margin-bottom: 28px; letter-spacing: 0.42em; }
+.bless-quote {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--purple-2);
+  font-style: italic;
+  text-wrap: balance;
+  margin: 0;
+}
+.bless-open, .bless-close {
+  font-family: var(--serif); font-style: italic;
+  font-size: 140px; line-height: 0; color: rgba(43, 21, 100, 0.25);
+  vertical-align: -0.4em;
+}
+.bless-sig {
+  margin-top: 40px;
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--purple);
+}
+
+.hymn {
+  max-width: 760px;
+  margin: 60px auto 0;
+  text-align: center;
+  padding: 0 16px;
+}
+.hymn .eyebrow { color: var(--purple); margin-bottom: 18px; letter-spacing: 0.34em; }
+.hymn-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(32px, 3.6vw, 48px);
+  letter-spacing: 0.04em;
+  color: var(--purple-2);
+  text-transform: uppercase;
+  margin: 0 0 36px;
+}
+.hymn-text {
+  text-align: left;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.7;
+  color: var(--purple-2);
+  max-width: 64ch;
+  margin: 0 auto;
+}
+.hymn-stanza { margin: 0; }
+.hymn-stanza + .hymn-stanza { margin-top: 20px; }
+.hymn-coda {
+  margin: 36px 0 0;
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+  color: var(--purple);
+}
+.hymn-attr {
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 10.5px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(43, 21, 100, 0.6);
+  text-align: center;
+}
+
+.rite {
+  max-width: 1100px;
+  margin: 60px auto 0;
+  padding: 0 16px;
+}
+.rite-h { text-align: center; margin-bottom: 56px; }
+.rite-h .eyebrow { color: var(--purple); margin-bottom: 18px; letter-spacing: 0.34em; }
+.rite-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.1;
+  color: var(--purple-2);
+  margin: 0;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.rite-title em { font-style: italic; color: var(--purple); display: block; }
+.rite-title .alt { display: block; }
+.rite-steps {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.rite-step {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  padding: 32px 28px;
+  text-align: left;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(43, 21, 100, 0.08);
+}
+.rite-step-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--purple);
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--line-on-lav);
+  padding-bottom: 12px;
+}
+.rite-step-name {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--purple-2);
+  letter-spacing: -0.005em;
+}
+.rite-step-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TESTIMONIALS
+   ───────────────────────────────────────────────────────────── */
+.tst { padding: var(--pad-y) var(--pad-x); background: var(--cream); }
+.tst-h { text-align: center; max-width: 720px; margin: 0 auto 60px; }
+.tst-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.tst-card {
+  text-align: center;
+  padding: 0 12px;
+}
+.tst-card::before {
+  content: '"';
+  display: block;
+  font-family: var(--serif); font-style: italic;
+  font-size: 64px; line-height: 0.4;
+  color: var(--lavender-deep);
+  margin-bottom: 24px;
+}
+.tst-q {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 22px; line-height: 1.4;
+  color: var(--purple-2);
+  margin: 0;
+  text-wrap: balance;
+}
+.tst-who {
+  margin-top: 26px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--purple);
+}
+.tst-where {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+  color: var(--ink-faint); margin-top: 4px; text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   INQUIRY FORM
+   ───────────────────────────────────────────────────────────── */
+.inq { padding: var(--pad-y) var(--pad-x); background: var(--lavender-soft); }
+.inq-h { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+.inq-h h2 { font-size: clamp(36px, 4.5vw, 60px); margin: 16px 0 0; }
+.inq-h h2 em { display: block; }
+.inq-h .lede { margin: 18px auto 0; }
+.inq-shell {
+  max-width: 880px; margin: 0 auto;
+  background: var(--paper);
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(43, 21, 100, 0.08);
+}
+.inq-progress {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.inq-pip {
+  padding: 14px 14px 18px;
+  border-bottom: 2px solid transparent;
+  display: flex; flex-direction: column; gap: 4px;
+  transition: border-color .25s, color .25s;
+  color: var(--ink-faint);
+}
+.inq-pip-num {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em;
+}
+.inq-pip-label {
+  font-family: var(--serif); font-style: italic;
+  font-size: 22px; color: inherit;
+  line-height: 1.1;
+}
+.inq-pip.on { color: var(--purple); border-bottom-color: var(--purple); }
+.inq-pip.past { color: var(--ink-soft); }
+
+.inq-stepmeta {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: 20px;
+}
+.inq-stepmeta strong { color: var(--purple); font-weight: 500; }
+
+.inq-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field.wide { grid-column: span 2; }
+.field-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.field-label .req { color: var(--purple); }
+.field input, .field textarea, .field select {
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 10px 0;
+  font-family: var(--serif);
+  font-size: 22px; font-style: italic; font-weight: 400;
+  color: var(--purple);
+  width: 100%;
+  outline: none;
+  transition: border-color .2s;
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(31, 13, 74, 0.32); font-style: italic; }
+.field input:focus, .field textarea:focus, .field select:focus { border-bottom-color: var(--purple); }
+.field textarea { resize: vertical; font-style: normal; font-size: 16px; line-height: 1.55; color: var(--ink); }
+.field input[type="date"], .field input[type="number"] { font-style: normal; }
+
+.inq-radios { display: flex; flex-wrap: wrap; gap: 8px; }
+.radio {
+  display: inline-flex; align-items: center;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink);
+  transition: all .2s;
+}
+.radio input { position: absolute; opacity: 0; pointer-events: none; }
+.radio:hover { border-color: var(--purple); color: var(--purple); }
+.radio.on { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+.inq-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px; padding-top: 28px;
+  border-top: 1px solid var(--line-soft);
+}
+.inq-error {
+  margin-top: 16px;
+  padding: 10px 14px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  background: color-mix(in oklab, var(--lavender-deep) 30%, transparent);
+  color: var(--purple);
+  border-radius: 4px;
+}
+
+.inq-done { text-align: center; padding: 24px 0; }
+.inq-done-mark {
+  width: 64px; height: 64px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic;
+  font-size: 30px;
+}
+.inq-done h3 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(32px, 3.6vw, 44px); margin: 0;
+  color: var(--purple);
+}
+.inq-done h3 em { font-style: italic; }
+.inq-done p { color: var(--ink-soft); margin: 16px auto 32px; max-width: 56ch; font-size: 15px; }
+.inq-done-summary {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px 32px;
+  max-width: 520px; margin: 0 auto 36px;
+  text-align: left;
+  padding: 24px;
+  background: var(--lavender-soft);
+  border-radius: 6px;
+}
+.inq-done-summary > div { display: flex; flex-direction: column; gap: 2px; }
+.inq-done-summary dt {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+.inq-done-summary dd {
+  font-family: var(--serif); font-style: italic;
+  font-size: 18px; color: var(--purple); margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTACT
+   ───────────────────────────────────────────────────────────── */
+.ctc {
+  padding: var(--pad-y) var(--pad-x);
+  background: var(--purple);
+  color: var(--cream);
+}
+.ctc .eyebrow,
+.ctc .ctc-label { color: rgba(255,255,255,0.55); }
+.ctc-h { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+.ctc-h h2 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(36px, 4.5vw, 60px); margin: 16px 0 0;
+  color: var(--cream);
+}
+.ctc-h h2 em { font-style: italic; color: #d6cbe9; display: block; }
+.ctc-h h2 .alt { display: block; }
+.ctc-h .ornament { color: var(--lavender-deep); }
+.ctc-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1240px; margin: 0 auto;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+.ctc-card { padding: 0; }
+.ctc-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.ctc-value {
+  font-family: var(--serif); font-style: italic;
+  font-size: 22px; color: var(--cream); line-height: 1.3;
+}
+.ctc-note { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 10px; }
+.ctc-cta {
+  max-width: 1240px; margin: 56px auto 0;
+  text-align: center;
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(28px, 3vw, 36px);
+  color: #d6cbe9;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────────────── */
+.ftr {
+  padding: 36px var(--pad-x);
+  background: var(--purple-2);
+  color: rgba(255,255,255,0.55);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 20px;
+}
+.ftr-brand {
+  font-family: var(--serif); font-style: italic;
+  font-size: 22px; color: #d6cbe9;
+}
+.ftr-copy {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LIGHTBOX
+   ───────────────────────────────────────────────────────────── */
+.lbx {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(29, 13, 74, .82);
+  backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans);
+}
+.lbx-card {
+  width: 70vmin; height: 70vmin; max-width: 720px; max-height: 90vh;
+  background: var(--lavender-bg);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,.45);
+  position: relative;
+}
+.lbx-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lbx-close {
+  position: absolute; top: 24px; right: 28px;
+  width: 40px; height: 40px; border-radius: 20px;
+  border: none; background: rgba(255,255,255,.1); color: #fff;
+  font-size: 22px; cursor: pointer; line-height: 1;
+  transition: background .2s;
+}
+.lbx-close:hover { background: rgba(255,255,255,.2); }
+.lbx-arr {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 56px; height: 56px; border-radius: 28px;
+  border: none; background: rgba(255,255,255,.08); color: #fff;
+  font-size: 28px; cursor: pointer; line-height: 1;
+  transition: background .2s;
+}
+.lbx-arr:hover { background: rgba(255,255,255,.18); }
+.lbx-l { left: 32px; }
+.lbx-r { right: 32px; }
+.lbx-meta {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  color: #fff; text-align: center;
+  width: 90%;
+}
+.lbx-title {
+  font-family: var(--serif); font-style: italic; font-size: 26px;
+  color: #d6cbe9;
+}
+.lbx-sub { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; opacity: .8; margin-top: 6px; }
+.lbx-count { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; opacity: .5; margin-top: 10px; }
+
+/* ─────────────────────────────────────────────────────────────
+   Responsive
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .nav { display: none; }
+  .story-grid { grid-template-columns: 1fr; gap: 40px; }
+  .story-portrait { max-width: 360px; margin: 0 auto; }
+  .svc-grid, .tst-grid, .ctc-grid { grid-template-columns: 1fr; }
+  .inq-fields { grid-template-columns: 1fr; }
+  .field.wide { grid-column: span 1; }
+  .scroller-arr-l { left: 8px; }
+  .scroller-arr-r { right: 8px; }
+}
+@media (max-width: 800px) {
+  .rite-steps { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .topbar { padding: 14px 20px; gap: 12px; }
+  .topbar-right .top-cta { display: none; }
+  .brand-name { display: none; }
+  .hero-headline { font-size: 44px; }
+  .inq-pip-label { font-size: 16px; }
+  .inq-pip { padding: 12px 8px; }
+}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- Product & bride data — edit this file to add new photos -->
+  <script src="data.js"></script>
+
+  <script type="text/babel">
+// ─── i18n ────────────────────────────────────────────────────────────────────
+const I18N = {
+  sr: {
+    nav: {
+      story: 'Atelje',
+      services: 'Ponuda',
+      gallery: 'Galerija',
+      blessing: 'Blagoslov',
+      contact: 'Kontakt',
+      book: 'Zakažite konsultaciju',
+    },
+    hero: {
+      eyebrow: 'Modni atelje · Beograd',
+      headline_a: 'Svaki dan je poseban,',
+      headline_b: 'ali ovaj se pamti večno.',
+      sub: 'Unikatni, ručno rađeni bidermajeri od svilenog cveća i dekoracije venčanja — protkani ljubavlju, tradicijom i duhovnošću.',
+      cta: 'Izaberite svoj buket snova',
+      cta_alt: 'Pogledajte ponudu',
+    },
+    story: {
+      eyebrow: 'O Ateljeu',
+      title_a: 'Spoj svetskog iskustva',
+      title_b: 'i beogradske duše.',
+      lede: 'Pre nego što nastane Vaš savršeni buket, u našem ateljeu se čuje tiha svetlost Isusove molitve i Himne ljubavi. Dok stvaramo, u svaku laticu utkivamo veru, snagu i duhovnost koju nosimo u sebi od samog našeg postojanja.',
+      body: 'Naš rad je inspirisan godinama stečenog iskustva u saradnji sa vodećim svetskim modnim brendovima, kao što su Ralph Lauren i Tommy Hilfiger. Vrativši se u naš Beograd — grad koji svima pruža raširene ruke — poželela sam da to svetsko prefinjeno iskustvo podelim sa vama, drage moje mlade, i prenesem ga u unikatne kreacije koje će obeležiti vaš najvažniji dan.',
+      sig: '— Violeta',
+      pills: ['New York', 'Milano', 'Beograd'],
+    },
+    services: {
+      eyebrow: 'Ponuda',
+      title_a: 'Tri načina',
+      title_b: 'da Vam ukrasimo dan.',
+      items: [
+        { tag: '01', name: 'Moderni Bidermajeri', short: 'Buket od svilenog cveća', body: 'Luksuzni bidermajeri od najkvalitetnijeg svilenog cveća, rađeni potpuno ručno i po dogovoru sa mladom. Zajedno biramo vrstu i savršenu boju cvetova kako bismo stvorili vaš lični buket ljubavi.', meta: 'na upit' },
+        { tag: '02', name: 'Dekoracija Venčanja', short: 'Kompletna dekoracija prostora', body: 'Kompletna i elegantna dekoracija venčanja na teritoriji Beograda, prilagođena vašoj viziji i stilu. Sve — od stolova do svadbenog luka.', meta: 'na upit' },
+        { tag: '03', name: 'Kućni Dekor', short: 'Aranžmani za dom', body: 'Unikatni cvetni aranžmani koji donose toplinu, eleganciju i prefinjen stil u vaš svakodnevni dom. Stvoreni da traju, kao i sećanja.', meta: 'na upit' },
+      ],
+    },
+    gallery: {
+      eyebrow: 'Naši bidermajeri',
+      title_a: 'Ručno rađeni',
+      title_b: 'buketi za vas.',
+      sub: 'Svaki je unikatan — rađen u tišini ateljea, sa molitvom i pažnjom utkanom u svaku laticu.',
+    },
+    brides: {
+      eyebrow: 'Naše mlade',
+      title_a: 'Dan koji se',
+      title_b: 'pamti večno.',
+      sub: 'Trenuci iz našeg ateljea — mlade sa svojim bidermajerima.',
+    },
+    blessing: {
+      eyebrow: 'Blagoslov',
+      open: '"',
+      body: 'Drage moje mlade, želim da u vašem budućem zajedničkom životu primate uvek samo blage i lepe vesti, a da vam svaki zajednički dan bude večan i poseban kao ovaj cvetni buket.',
+      close: '"',
+      sig: 'Modni atelje Violeta',
+    },
+    hymn: {
+      eyebrow: 'Himna Ljubavi · 1 Kor. 13',
+      title: 'Himna Ljubavi',
+      stanzas: [
+        'Ako jezike čovečije i anđeoske govorim a ljubavi nemam, onda sam kao zvono koje ječi ili kimval koji zveči. I, ako imam dar proroštva i znam sve tajne i sve znanje i, ako imam svu veru da i gore premeštam, a ljubavi nemam, ništa sam. I, ako razdam sve imanje svoje i, ako predam telo svoje da se sažeže, a ljubavi nemam, ništa mi ne koristi.',
+        'Ljubav dugo trpi, blagotvorna je; ljubav ne zavidi, ljubav se ne gordi, ne nadima se, ne čini što ne pristoji, ne traži svoje, ne razdražuje se, ne misli o zlu, ne raduje se nepravdi a raduje se istini, sve snosi, sve veruje, svemu se nada, sve trpi.',
+        'Ljubav nikad ne prestaje, dok će proroštva nestati, jezici će zamuknuti, znanje će prestati. Jer, delimično znamo i delimično prorokujemo; a kada dođe savršeno, onda će prestati što je delimično. Kad bijah dete, kao dete govorah, kao dete mišljah, kao dete razmišljah; a kada sam postao čovek, odbacio sam što je detinjsko. Jer, sad vidimo kao u ogledalu, u zagonetki, a onda ćemo licem u lice; sad znam delimično, a onda ću poznati kao što bih poznat.',
+      ],
+      coda: 'A sad ostaje vera, nada, ljubav, ovo troje; ali od njih najveća je ljubav.',
+      attribution: '— Apostol Pavle, 1. Korinćanima 13',
+    },
+    process: {
+      eyebrow: 'Naš obred',
+      title_a: 'Tri blagoslova',
+      title_b: 'pre nego što buket ode mladi.',
+      sub: 'Što ovaj atelje čini drugačijim — svaki buket prolazi kroz tri tihe ceremonije pre nego što dođe u vaše ruke.',
+      steps: [
+        { num: 'I', name: 'Lični blagoslov', body: 'Violeta sama, u tišini ateljea, izgovara molitvu i daje lični blagoslov vama, vašem partneru, i vašem zajedničkom putu.' },
+        { num: 'II', name: 'Pevana himna', body: 'Dok se buket pravi, Himna ljubavi (1. Kor. 13) se peva i izgovara nad cvećem — svaka latica utkana je sa rečima ljubavi.' },
+        { num: 'III', name: 'Sveštenički blagoslov', body: 'Pre nego što buket bude predat mladi, sveštenik daje krajnji blagoslov u skladu sa pravoslavnim molitvenim obredom.' },
+      ],
+    },
+    testimonials: {
+      eyebrow: 'Mlade o nama',
+      items: [
+        { q: 'Buket je bio toplo srce dana. Devojke i danas pamte boje.', who: 'Marija i Stefan', where: 'Beograd · 2024' },
+        { q: 'Violeta je razumela ono što nisam umela da objasnim. Atelje je pravo malo svetilište.', who: 'Jelena', where: 'Zemun · 2023' },
+        { q: 'Ručno rađen detalj koji se vidi na svakoj fotografiji. Hvala vam.', who: 'Anja i Marko', where: 'Dedinje · 2025' },
+      ],
+    },
+    inquiry: {
+      eyebrow: 'Konsultacija',
+      title_a: 'Hajde da se',
+      title_b: 'upoznamo.',
+      sub: 'Tri kratka koraka. Javljam se lično u roku od 24h.',
+      step: 'Korak',
+      of: 'od',
+      steps: ['Vi i vaš dragi', 'Detalji venčanja', 'Vaša vizija'],
+      f: {
+        name: 'Vaše ime', partner: 'Ime partnera', email: 'E-mail', phone: 'Telefon',
+        date: 'Datum venčanja', guests: 'Broj zvanica', venue: 'Mesto / sala',
+        package: 'Šta vas zanima',
+        packageOpts: ['Bidermajer', 'Dekoracija venčanja', 'Oboje', 'Još nisam sigurna'],
+        budget: 'Okvirni budžet',
+        budgetOpts: ['do 30.000 RSD', '30 — 80.000 RSD', '80 — 200.000 RSD', 'Otvoreno'],
+        note: 'Vaša priča (par redova)', notePh: 'Boje, cvet, mesto, atmosfera — pišite slobodno…',
+      },
+      back: 'Nazad', next: 'Dalje', submit: 'Pošaljite želju',
+      done_a: 'Hvala vam.', done_b: 'Pripremamo vam odgovor sa pažnjom.',
+      done_sub: 'Javljam se lično u roku od 24h. U međuvremenu — neka vam je sa srećom.',
+    },
+    contact: {
+      eyebrow: 'Kontakt i dostava',
+      title_a: 'Lična dostava',
+      title_b: 'na vaša vrata.',
+      delivery_l: 'Besplatna dostava',
+      delivery_v: 'Karaburma · Mirijevo · Višnjica · Višnjička Banja',
+      delivery_n: 'Ostali delovi Beograda — po dogovoru.',
+      location_l: 'Atelje', location_v: 'Beograd, Srbija',
+      phone_l: 'Telefon', phone_v: '063 807 3321',
+      hours_l: 'Termini', hours_v: 'Po dogovoru · pon — sub',
+      cta: 'Zovite, javljam se.',
+    },
+    foot: {
+      tag: 'Modni atelje Violeta',
+      copy: '© 2026 Modni atelje Violeta · Beograd',
+      audio_on: 'Tiha himna', audio_off: 'Bez zvuka',
+    },
+  },
+
+  en: {
+    nav: {
+      story: 'Atelier', services: 'Services', gallery: 'Gallery',
+      blessing: 'Blessing', contact: 'Contact', book: 'Book a consultation',
+    },
+    hero: {
+      eyebrow: 'Fashion atelier · Belgrade',
+      headline_a: 'Every day is special,',
+      headline_b: 'but this one is remembered forever.',
+      sub: 'One-of-a-kind hand-made silk bouquets and wedding décor — woven with love, tradition, and quiet devotion.',
+      cta: 'Choose your dream bouquet', cta_alt: 'See the offerings',
+    },
+    story: {
+      eyebrow: 'About the atelier',
+      title_a: 'A meeting of world',
+      title_b: 'experience and Belgrade soul.',
+      lede: 'Before your perfect bouquet comes to life, the atelier fills with the quiet light of prayer and the Hymn of Love. We weave faith, strength, and devotion into every petal — the way we have done since the beginning.',
+      body: 'Our work is shaped by years spent with leading fashion houses — Ralph Lauren, Tommy Hilfiger — before returning home to Belgrade, a city that opens its arms to everyone. I wanted to bring that world-class craft back to my dear brides, and turn it into one-of-a-kind pieces that mark your most important day.',
+      sig: '— Violeta',
+      pills: ['New York', 'Milan', 'Belgrade'],
+    },
+    services: {
+      eyebrow: 'Services',
+      title_a: 'Three ways',
+      title_b: 'to dress your day.',
+      items: [
+        { tag: '01', name: 'Modern Bouquets', short: 'Silk-flower bridal bouquets', body: 'Luxurious bouquets made of the finest silk flowers, hand-built in conversation with the bride. We choose the variety and the exact tone together, until the bouquet feels yours.', meta: 'on request' },
+        { tag: '02', name: 'Wedding Décor', short: 'Complete venue styling', body: 'Complete, elegant wedding décor across Belgrade — adapted to your vision and style. Everything from table arrangements to the ceremony arch.', meta: 'on request' },
+        { tag: '03', name: 'Home Florals', short: 'Arrangements for the home', body: 'One-of-a-kind floral arrangements that bring warmth, elegance, and quiet refinement into everyday spaces. Made to last — like the memories.', meta: 'on request' },
+      ],
+    },
+    gallery: {
+      eyebrow: 'Our bouquets', title_a: 'Hand-made', title_b: 'bouquets for you.',
+      sub: 'Each is one of a kind — made in the quiet of the atelier, with prayer and care woven into every petal.',
+    },
+    brides: {
+      eyebrow: 'Our brides', title_a: 'A day remembered', title_b: 'forever.',
+      sub: 'Moments from the atelier — brides with their bouquets.',
+    },
+    blessing: {
+      eyebrow: 'A blessing', open: '"',
+      body: 'My dear brides — may you receive in your shared life only soft and beautiful news, and may every day together be as eternal and special as this floral bouquet.',
+      close: '"', sig: 'Atelier Violeta',
+    },
+    hymn: {
+      eyebrow: 'Hymn of Love · 1 Cor. 13',
+      title: 'The Hymn of Love',
+      stanzas: [
+        'If I speak with the tongues of men and of angels, but have not love, I am become as sounding brass, or a clanging cymbal. And if I have the gift of prophecy, and know all mysteries and all knowledge; and if I have all faith, so as to remove mountains, but have not love, I am nothing. And if I bestow all my goods to feed the poor, and if I give my body to be burned, but have not love, it profiteth me nothing.',
+        'Love suffereth long, and is kind; love envieth not; love vaunteth not itself, is not puffed up, doth not behave itself unseemly, seeketh not its own, is not provoked, taketh not account of evil; rejoiceth not in unrighteousness, but rejoiceth with the truth; beareth all things, believeth all things, hopeth all things, endureth all things.',
+        'Love never faileth: but whether there be prophecies, they shall be done away; whether there be tongues, they shall cease; whether there be knowledge, it shall be done away. For we know in part, and we prophesy in part; but when that which is perfect is come, that which is in part shall be done away. When I was a child, I spake as a child, I felt as a child, I thought as a child: now that I am become a man, I have put away childish things. For now we see in a mirror, darkly; but then face to face: now I know in part; but then shall I know fully even as also I was fully known.',
+      ],
+      coda: 'But now abideth faith, hope, love, these three; and the greatest of these is love.',
+      attribution: '— St. Paul, 1 Corinthians 13',
+    },
+    process: {
+      eyebrow: 'Our rite',
+      title_a: 'Three blessings',
+      title_b: 'before the bouquet meets the bride.',
+      sub: 'What sets this atelier apart — every bouquet passes through three quiet ceremonies before it reaches your hands.',
+      steps: [
+        { num: 'I', name: 'Personal blessing', body: 'Violeta herself, in the silence of the atelier, speaks the prayer and gives a personal blessing to you, your partner, and the path you share.' },
+        { num: 'II', name: 'Sung hymn', body: 'As the bouquet is built, the Hymn of Love (1 Cor. 13) is sung and spoken over the flowers — every petal woven with words of love.' },
+        { num: 'III', name: 'Priestly blessing', body: 'Before the bouquet is handed to the bride, an Orthodox priest gives the final blessing in accordance with the Orthodox Christian prayer rite.' },
+      ],
+    },
+    testimonials: {
+      eyebrow: 'Brides on us',
+      items: [
+        { q: 'The bouquet was the warm heart of the day. The girls still remember the colors.', who: 'Marija & Stefan', where: 'Belgrade · 2024' },
+        { q: 'Violeta understood what I could not put into words. The atelier is a small sanctuary.', who: 'Jelena', where: 'Zemun · 2023' },
+        { q: 'A hand-made detail you can see in every photograph. Thank you.', who: 'Anja & Marko', where: 'Dedinje · 2025' },
+      ],
+    },
+    inquiry: {
+      eyebrow: 'Consultation', title_a: "Let's get", title_b: 'acquainted.',
+      sub: 'Three short steps. I answer personally within 24 hours.',
+      step: 'Step', of: 'of',
+      steps: ['You and your beloved', 'Wedding details', 'Your vision'],
+      f: {
+        name: 'Your name', partner: "Partner's name", email: 'E-mail', phone: 'Phone',
+        date: 'Wedding date', guests: 'Guests', venue: 'Venue',
+        package: 'What interests you',
+        packageOpts: ['Bouquet', 'Wedding décor', 'Both', 'Not sure yet'],
+        budget: 'Approximate budget',
+        budgetOpts: ['up to 30,000 RSD', '30 – 80,000 RSD', '80 – 200,000 RSD', 'Open'],
+        note: 'Your story (a few lines)', notePh: 'Colors, flower, place, atmosphere — write freely…',
+      },
+      back: 'Back', next: 'Next', submit: 'Send the wish',
+      done_a: 'Thank you.', done_b: 'We are preparing your answer with care.',
+      done_sub: 'I reply personally within 24h. In the meantime — may it be with joy.',
+    },
+    contact: {
+      eyebrow: 'Contact & delivery', title_a: 'Personal delivery', title_b: 'to your door.',
+      delivery_l: 'Free delivery',
+      delivery_v: 'Karaburma · Mirijevo · Višnjica · Višnjička Banja',
+      delivery_n: 'Other parts of Belgrade — on request.',
+      location_l: 'Atelier', location_v: 'Belgrade, Serbia',
+      phone_l: 'Phone', phone_v: '063 807 3321',
+      hours_l: 'Hours', hours_v: 'By appointment · Mon – Sat',
+      cta: 'Call — I will answer.',
+    },
+    foot: {
+      tag: 'Atelier Violeta',
+      copy: '© 2026 Atelier Violeta · Belgrade',
+      audio_on: 'Quiet hymn', audio_off: 'No sound',
+    },
+  },
+};
+
+const LangCtx = React.createContext({ lang: 'sr', setLang: () => {}, t: I18N.sr });
+
+function LangProvider({ children }) {
+  const [lang, setLang] = React.useState('sr');
+  const value = React.useMemo(
+    () => ({ lang, setLang, t: I18N[lang], other: lang === 'sr' ? 'EN' : 'SR' }),
+    [lang],
+  );
+  return <LangCtx.Provider value={value}>{children}</LangCtx.Provider>;
+}
+
+const useLang = () => React.useContext(LangCtx);
+
+// BOUQUETS and BRIDES are loaded from data.js (the file above the script tags).
+// Edit data.js to add new bouquets or bride photos.
+
+// ─── Shared helpers ───────────────────────────────────────────────────────────
+function useReveal() {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fallback = setTimeout(() => el.classList.add('is-in'), 200);
+    if (!('IntersectionObserver' in window)) return () => clearTimeout(fallback);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { el.classList.add('is-in'); io.unobserve(el); clearTimeout(fallback); }
+        });
+      },
+      { rootMargin: '200px 0px 200px 0px', threshold: 0 },
+    );
+    io.observe(el);
+    return () => { io.disconnect(); clearTimeout(fallback); };
+  }, []);
+  return ref;
+}
+
+function PetalCursor({ color = 'rgba(154, 135, 196, 0.55)' }) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const layer = ref.current;
+    if (!layer) return;
+    let last = 0, count = 0;
+    const onMove = (e) => {
+      const now = performance.now();
+      if (now - last < 90) return;
+      last = now;
+      if (count > 16) return;
+      count++;
+      const x = e.clientX;
+      const y = e.clientY + window.scrollY;
+      const el = document.createElement('span');
+      el.className = 'petal';
+      const size = 5 + Math.random() * 8;
+      const dx = (Math.random() - 0.5) * 60;
+      const rot = (Math.random() - 0.5) * 80;
+      el.style.cssText = [
+        `position:absolute`, `left:${x}px`, `top:${y}px`,
+        `width:${size}px`, `height:${size * 1.4}px`,
+        `background:${color}`, `--dx:${dx}px`, `--rot:${rot}deg`,
+      ].join(';');
+      layer.appendChild(el);
+      setTimeout(() => { el.remove(); count--; }, 1600);
+    };
+    window.addEventListener('pointermove', onMove);
+    return () => window.removeEventListener('pointermove', onMove);
+  }, [color]);
+  return (
+    <div ref={ref} aria-hidden="true"
+      style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }} />
+  );
+}
+
+function useHymn() {
+  const ctxRef = React.useRef(null);
+  const masterRef = React.useRef(null);
+  const nodesRef = React.useRef([]);
+  const [on, setOn] = React.useState(false);
+
+  const start = () => {
+    if (ctxRef.current) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    ctxRef.current = ctx;
+    const master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+    masterRef.current = master;
+    const freqs = [196.0, 261.63, 311.13, 392.0];
+    freqs.forEach((f, i) => {
+      const osc = ctx.createOscillator();
+      osc.type = i % 2 ? 'sine' : 'triangle';
+      osc.frequency.value = f;
+      const g = ctx.createGain();
+      g.gain.value = 0.06 - i * 0.008;
+      const lfo = ctx.createOscillator();
+      lfo.frequency.value = 0.07 + i * 0.03;
+      const lfoG = ctx.createGain();
+      lfoG.gain.value = 0.4 + i * 0.2;
+      lfo.connect(lfoG).connect(osc.detune);
+      osc.connect(g).connect(master);
+      osc.start(); lfo.start();
+      nodesRef.current.push(osc, lfo);
+    });
+  };
+
+  const fade = (to, dur = 1.2) => {
+    const ctx = ctxRef.current;
+    if (!ctx || !masterRef.current) return;
+    const m = masterRef.current.gain;
+    m.cancelScheduledValues(ctx.currentTime);
+    m.setValueAtTime(m.value, ctx.currentTime);
+    m.linearRampToValueAtTime(to, ctx.currentTime + dur);
+  };
+
+  const toggle = () => {
+    setOn((prev) => {
+      const next = !prev;
+      if (next) { start(); ctxRef.current && ctxRef.current.resume && ctxRef.current.resume(); fade(0.8, 1.4); }
+      else { fade(0, 0.9); }
+      return next;
+    });
+  };
+
+  React.useEffect(() => () => {
+    nodesRef.current.forEach((n) => { try { n.stop(); } catch {} });
+    try { ctxRef.current && ctxRef.current.close(); } catch {}
+  }, []);
+
+  return { on, toggle };
+}
+
+function Ornament({ color }) {
+  return (
+    <div className="ornament" style={color ? { color } : undefined}>
+      <svg width="40" height="10" viewBox="0 0 40 10" aria-hidden="true">
+        <g fill="currentColor">
+          <path d="M5 5 L8 2 L11 5 L8 8 Z" />
+          <path d="M17 5 L20 1 L23 5 L20 9 Z" />
+          <path d="M29 5 L32 2 L35 5 L32 8 Z" opacity="0.7" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function formatDate(d, lang) {
+  if (!d) return '';
+  const dt = new Date(d);
+  if (isNaN(dt)) return d;
+  return dt.toLocaleDateString(lang === 'sr' ? 'sr-Latn-RS' : 'en-GB', {
+    day: 'numeric', month: 'long', year: 'numeric',
+  });
+}
+
+// ─── Scroller ─────────────────────────────────────────────────────────────────
+function Scroller({ items, renderItem, cardWidth = 360, gap = 24, ariaLabel, onItemClick }) {
+  const trackRef = React.useRef(null);
+  const [canLeft, setCanLeft]   = React.useState(false);
+  const [canRight, setCanRight] = React.useState(true);
+  const [active, setActive]     = React.useState(0);
+
+  const update = React.useCallback(() => {
+    const t = trackRef.current;
+    if (!t) return;
+    setCanLeft(t.scrollLeft > 4);
+    setCanRight(t.scrollLeft + t.clientWidth < t.scrollWidth - 4);
+    const idx = Math.round(t.scrollLeft / (cardWidth + gap));
+    setActive(Math.max(0, Math.min(items.length - 1, idx)));
+  }, [items.length, cardWidth, gap]);
+
+  React.useEffect(() => {
+    const t = trackRef.current;
+    if (!t) return;
+    update();
+    t.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => { t.removeEventListener('scroll', update); window.removeEventListener('resize', update); };
+  }, [update]);
+
+  const step = (dir) => {
+    const t = trackRef.current;
+    if (!t) return;
+    t.scrollBy({ left: dir * (cardWidth + gap), behavior: 'smooth' });
+  };
+
+  const goTo = (i) => {
+    const t = trackRef.current;
+    if (!t) return;
+    t.scrollTo({ left: i * (cardWidth + gap), behavior: 'smooth' });
+  };
+
+  return (
+    <div className="scroller" aria-label={ariaLabel}>
+      <button type="button"
+        className={`scroller-arr scroller-arr-l ${canLeft ? '' : 'is-disabled'}`}
+        onClick={() => step(-1)} aria-label="Prethodno" disabled={!canLeft}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M11 3L5 9l6 6" />
+        </svg>
+      </button>
+      <button type="button"
+        className={`scroller-arr scroller-arr-r ${canRight ? '' : 'is-disabled'}`}
+        onClick={() => step(1)} aria-label="Sledeće" disabled={!canRight}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M7 3l6 6-6 6" />
+        </svg>
+      </button>
+      <div className="scroller-track" ref={trackRef} style={{ '--card-w': `${cardWidth}px`, '--gap': `${gap}px` }}>
+        {items.map((it, i) => (
+          <div key={it.id || i} className="scroller-card"
+            onClick={onItemClick ? () => onItemClick(i) : undefined}
+            role={onItemClick ? 'button' : undefined}
+            tabIndex={onItemClick ? 0 : undefined}
+            onKeyDown={onItemClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onItemClick(i); } } : undefined}>
+            {renderItem(it, i)}
+          </div>
+        ))}
+      </div>
+      <div className="scroller-dots" role="tablist" aria-label="Stranica">
+        {items.map((_, i) => (
+          <button key={i} type="button" className={`scroller-dot ${i === active ? 'on' : ''}`}
+            onClick={() => goTo(i)} aria-label={`${i + 1}`} aria-selected={i === active} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Lightbox ─────────────────────────────────────────────────────────────────
+function Lightbox({ items, openIdx, onClose }) {
+  const [idx, setIdx] = React.useState(openIdx);
+  React.useEffect(() => setIdx(openIdx), [openIdx]);
+
+  React.useEffect(() => {
+    if (openIdx == null) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') setIdx((i) => (i - 1 + items.length) % items.length);
+      if (e.key === 'ArrowRight') setIdx((i) => (i + 1) % items.length);
+    };
+    document.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
+  }, [openIdx, items.length, onClose]);
+
+  if (openIdx == null) return null;
+  const item = items[idx];
+  return ReactDOM.createPortal(
+    <div className="lbx" onClick={onClose} role="dialog" aria-modal="true">
+      <button className="lbx-close" onClick={onClose} aria-label="Close">×</button>
+      <button className="lbx-arr lbx-l"
+        onClick={(e) => { e.stopPropagation(); setIdx((i) => (i - 1 + items.length) % items.length); }}
+        aria-label="Prev">‹</button>
+      <button className="lbx-arr lbx-r"
+        onClick={(e) => { e.stopPropagation(); setIdx((i) => (i + 1) % items.length); }}
+        aria-label="Next">›</button>
+      <div className="lbx-card" onClick={(e) => e.stopPropagation()}>
+        <img src={item.src} alt={item.name} />
+      </div>
+      <div className="lbx-meta" onClick={(e) => e.stopPropagation()}>
+        <div className="lbx-title">{item.name}</div>
+        <div className="lbx-sub">{item.desc}</div>
+        <div className="lbx-count">{idx + 1} / {items.length}</div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+// ─── Inquiry Form ─────────────────────────────────────────────────────────────
+function InquiryForm() {
+  const { t, lang } = useLang();
+  const q = t.inquiry;
+  const f = q.f;
+  const [step, setStep] = React.useState(0);
+  const [data, setData] = React.useState({
+    name: '', partner: '', email: '', phone: '',
+    date: '', guests: '', venue: '',
+    package: f.packageOpts[0], budget: '', note: '',
+  });
+  const [done, setDone] = React.useState(false);
+  const [touched, setTouched] = React.useState({});
+
+  const upd = (k, v) => setData((d) => ({ ...d, [k]: v }));
+
+  const stepValid = (s) => {
+    if (s === 0) return data.name.trim() && /.+@.+\..+/.test(data.email);
+    if (s === 1) return data.date && data.venue.trim();
+    return true;
+  };
+
+  const next = () => {
+    setTouched((tch) => ({ ...tch, [step]: true }));
+    if (!stepValid(step)) return;
+    if (step < 2) setStep(step + 1);
+    else setDone(true);
+  };
+  const back = () => setStep((s) => Math.max(0, s - 1));
+
+  return (
+    <section className="inq" id="inquiry">
+      <header className="inq-h">
+        <div className="eyebrow">{q.eyebrow}</div>
+        <h2 className="display">
+          <em>{q.title_a}</em>
+          <span className="alt">{q.title_b}</span>
+        </h2>
+        <Ornament />
+        <p className="lede" style={{ margin: '0 auto' }}>{q.sub}</p>
+      </header>
+
+      <div className="inq-shell">
+        {!done && (
+          <>
+            <div className="inq-progress">
+              {q.steps.map((label, i) => (
+                <div key={i} className={`inq-pip ${i === step ? 'on' : ''} ${i < step ? 'past' : ''}`}>
+                  <span className="inq-pip-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="inq-pip-label">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="inq-step">
+              <div className="inq-stepmeta">
+                {q.step} <strong>{step + 1}</strong> {q.of} 3 · <span>{q.steps[step]}</span>
+              </div>
+
+              {step === 0 && (
+                <div className="inq-fields">
+                  <Field label={f.name} required>
+                    <input value={data.name} onChange={(e) => upd('name', e.target.value)}
+                      placeholder={lang === 'sr' ? 'Marija' : 'Maria'} />
+                  </Field>
+                  <Field label={f.partner}>
+                    <input value={data.partner} onChange={(e) => upd('partner', e.target.value)} placeholder="Stefan" />
+                  </Field>
+                  <Field label={f.email} required>
+                    <input type="email" value={data.email} onChange={(e) => upd('email', e.target.value)} placeholder="marija@…" />
+                  </Field>
+                  <Field label={f.phone}>
+                    <input value={data.phone} onChange={(e) => upd('phone', e.target.value)} placeholder="063 …" />
+                  </Field>
+                </div>
+              )}
+
+              {step === 1 && (
+                <div className="inq-fields">
+                  <Field label={f.date} required>
+                    <input type="date" value={data.date} onChange={(e) => upd('date', e.target.value)} />
+                  </Field>
+                  <Field label={f.guests}>
+                    <input type="number" min="0" value={data.guests} onChange={(e) => upd('guests', e.target.value)} placeholder="80" />
+                  </Field>
+                  <Field label={f.venue} required wide>
+                    <input value={data.venue} onChange={(e) => upd('venue', e.target.value)}
+                      placeholder={lang === 'sr' ? 'Salon, restoran, mesto…' : 'Venue, restaurant, place…'} />
+                  </Field>
+                  <Field label={f.package} wide>
+                    <div className="inq-radios">
+                      {f.packageOpts.map((opt) => (
+                        <label key={opt} className={`radio ${data.package === opt ? 'on' : ''}`}>
+                          <input type="radio" name="pkg" checked={data.package === opt} onChange={() => upd('package', opt)} />
+                          <span>{opt}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </Field>
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="inq-fields">
+                  <Field label={f.budget} wide>
+                    <div className="inq-radios">
+                      {f.budgetOpts.map((opt) => (
+                        <label key={opt} className={`radio ${data.budget === opt ? 'on' : ''}`}>
+                          <input type="radio" name="bud" checked={data.budget === opt} onChange={() => upd('budget', opt)} />
+                          <span>{opt}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </Field>
+                  <Field label={f.note} wide>
+                    <textarea rows="5" value={data.note} onChange={(e) => upd('note', e.target.value)} placeholder={f.notePh} />
+                  </Field>
+                </div>
+              )}
+
+              {touched[step] && !stepValid(step) && (
+                <div className="inq-error">
+                  {lang === 'sr' ? 'Molim popunite obavezna polja (označena *).' : 'Please complete the required fields (marked *).'}
+                </div>
+              )}
+
+              <div className="inq-nav">
+                {step > 0 ? (
+                  <button type="button" className="btn btn-ghost" onClick={back}>← {q.back}</button>
+                ) : <span />}
+                <button type="button" className="btn btn-primary" onClick={next}>
+                  {step < 2 ? `${q.next} →` : `${q.submit} ✦`}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
+        {done && (
+          <div className="inq-done">
+            <div className="inq-done-mark">V</div>
+            <h3>
+              <em>{q.done_a}</em><br />
+              <span>{q.done_b}</span>
+            </h3>
+            <p>{q.done_sub}</p>
+            <dl className="inq-done-summary">
+              <div><dt>{f.name}</dt><dd>{data.name}{data.partner && ` + ${data.partner}`}</dd></div>
+              <div><dt>{f.date}</dt><dd>{formatDate(data.date, lang)}</dd></div>
+              <div><dt>{f.venue}</dt><dd>{data.venue}</dd></div>
+              <div><dt>{f.package}</dt><dd>{data.package}</dd></div>
+            </dl>
+            <button type="button" className="btn btn-ghost"
+              onClick={() => { setDone(false); setStep(0); }}>
+              {lang === 'sr' ? '← Pošaljite još jednu' : '← Send another'}
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, required, wide, children }) {
+  return (
+    <label className={`field ${wide ? 'wide' : ''}`}>
+      <span className="field-label">
+        {label}{required && <span className="req"> *</span>}
+      </span>
+      {children}
+    </label>
+  );
+}
+
+// ─── Site ─────────────────────────────────────────────────────────────────────
+function Site() {
+  const { t, lang, setLang, other } = useLang();
+  const { on: audioOn, toggle: toggleAudio } = useHymn();
+
+  const [bouquetIdx, setBouquetIdx] = React.useState(null);
+  const [brideIdx,   setBrideIdx]   = React.useState(null);
+
+  const bouquetItems = BOUQUETS.map((b) => ({
+    id: b.id, src: b.src, num: b.num,
+    name: (b[lang] || b.sr).name,
+    desc: (b[lang] || b.sr).desc,
+  }));
+  const brideItems = BRIDES.map((b) => ({
+    id: b.id, src: b.src,
+    caption: (b[lang] || b.sr).caption,
+    place: (b[lang] || b.sr).place,
+  }));
+  const brideLightboxItems = brideItems.map((b) => ({
+    src: b.src, name: b.caption, desc: b.place,
+  }));
+
+  const scrollTo = (anchor) => (e) => {
+    e.preventDefault();
+    document.querySelector(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  return (
+    <>
+      <PetalCursor />
+
+      {/* Topbar */}
+      <header className="topbar">
+        <a className="brand" href="#hero" onClick={scrollTo('#hero')}>
+          <span className="brand-mark">Violeta</span>
+          <span className="brand-name">{lang === 'sr' ? 'Modni atelje · Beograd' : 'Atelier · Belgrade'}</span>
+        </a>
+        <nav className="nav">
+          <a href="#story"      onClick={scrollTo('#story')}>{t.nav.story}</a>
+          <a href="#services"   onClick={scrollTo('#services')}>{t.nav.services}</a>
+          <a href="#collection" onClick={scrollTo('#collection')}>{t.nav.gallery}</a>
+          <a href="#blessing"   onClick={scrollTo('#blessing')}>{t.nav.blessing}</a>
+          <a href="#contact"    onClick={scrollTo('#contact')}>{t.nav.contact}</a>
+        </nav>
+        <div className="topbar-right">
+          <button className={`icon-btn ${audioOn ? 'on' : ''}`} onClick={toggleAudio}
+            title={audioOn ? t.foot.audio_on : t.foot.audio_off}
+            aria-label={audioOn ? t.foot.audio_on : t.foot.audio_off}>
+            <span className="pulse" />♪
+          </button>
+          <button className="icon-btn" onClick={() => setLang(lang === 'sr' ? 'en' : 'sr')}>
+            {lang.toUpperCase()} / {other}
+          </button>
+          <button className="top-cta" onClick={scrollTo('#inquiry')}>{t.nav.book}</button>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="hero" id="hero">
+        <div className="hero-folio">{t.hero.eyebrow}</div>
+        <h1 className="hero-headline">
+          <em>{t.hero.headline_a}</em>
+          <span className="alt">{t.hero.headline_b}</span>
+        </h1>
+        <p className="hero-sub">{t.hero.sub}</p>
+        <div className="hero-cta-row">
+          <button className="btn btn-primary" onClick={scrollTo('#collection')}>{t.hero.cta} →</button>
+          <button className="btn btn-ghost" onClick={scrollTo('#services')}>{t.hero.cta_alt}</button>
+        </div>
+        <div className="hero-tile">
+          <img src="assets/atelier-hero.jpg" alt="Modni atelje Violeta" />
+        </div>
+        <div className="hero-tag">— {t.blessing.sig}</div>
+      </section>
+
+      {/* Story */}
+      <section className="story" id="story">
+        <header className="story-h">
+          <div className="eyebrow">{t.story.eyebrow}</div>
+          <h2 className="display">
+            <em>{t.story.title_a}</em>
+            <span className="alt">{t.story.title_b}</span>
+          </h2>
+          <Ornament />
+        </header>
+        <div className="story-grid">
+          <div className="story-portrait">
+            <img src="assets/violeta-portrait.jpg" alt="Violeta · Modni atelje" />
+          </div>
+          <div className="story-text">
+            <p>
+              <span className="lead-cap">{t.story.lede.charAt(0)}</span>
+              {t.story.lede.slice(1)}
+            </p>
+            <p>{t.story.body}</p>
+            <div className="story-pills">
+              {t.story.pills.map((p) => <span key={p} className="story-pill">{p}</span>)}
+            </div>
+            <div className="story-sig">{t.story.sig}</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="svc" id="services">
+        <header className="svc-h">
+          <div className="eyebrow">{t.services.eyebrow}</div>
+          <h2 className="display">
+            <em>{t.services.title_a}</em>
+            <span className="alt">{t.services.title_b}</span>
+          </h2>
+          <Ornament />
+        </header>
+        <div className="svc-grid">
+          {t.services.items.map((it) => (
+            <article key={it.tag} className="svc-card">
+              <div className="svc-card-tag">№ {it.tag}</div>
+              <h3 className="svc-card-name">{it.name}</h3>
+              <div className="svc-card-short">{it.short}</div>
+              <p className="svc-card-body">{it.body}</p>
+              <div className="svc-card-meta">{it.meta}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Collection */}
+      <section className="coll" id="collection">
+        <header className="coll-h">
+          <div className="eyebrow">{t.gallery.eyebrow}</div>
+          <h2 className="display">
+            <em>{t.gallery.title_a}</em>
+            <span className="alt">{t.gallery.title_b}</span>
+          </h2>
+          <Ornament />
+          <p className="lede" style={{ margin: '8px auto 0' }}>{t.gallery.sub}</p>
+        </header>
+        <Scroller
+          items={bouquetItems}
+          cardWidth={360}
+          gap={24}
+          ariaLabel={t.gallery.eyebrow}
+          onItemClick={(i) => setBouquetIdx(i)}
+          renderItem={(b) => (
+            <div className="product-card">
+              <div className="product-card-tile">
+                <img src={b.src} alt={b.name} />
+              </div>
+              <div className="product-card-meta">
+                <div className="product-card-num">№ {b.num}</div>
+                <div className="product-card-name">{b.name}</div>
+                <p className="product-card-desc">{b.desc}</p>
+              </div>
+            </div>
+          )}
+        />
+        <Lightbox items={bouquetItems} openIdx={bouquetIdx} onClose={() => setBouquetIdx(null)} />
+      </section>
+
+      {/* Brides */}
+      <section className="brides" id="brides">
+        <header className="brides-h">
+          <div className="eyebrow">{t.brides.eyebrow}</div>
+          <h2 className="display">
+            <em>{t.brides.title_a}</em>
+            <span className="alt">{t.brides.title_b}</span>
+          </h2>
+          <Ornament />
+          <p className="lede" style={{ margin: '8px auto 0' }}>{t.brides.sub}</p>
+        </header>
+        <Scroller
+          items={brideItems}
+          cardWidth={320}
+          gap={24}
+          ariaLabel={t.brides.eyebrow}
+          onItemClick={(i) => setBrideIdx(i)}
+          renderItem={(b) => (
+            <div className="bride-card">
+              <div className="bride-card-frame">
+                <img src={b.src} alt={b.caption} />
+              </div>
+              <div className="bride-card-caption">{b.caption}</div>
+              <div className="bride-card-place">{b.place}</div>
+            </div>
+          )}
+        />
+        <Lightbox items={brideLightboxItems} openIdx={brideIdx} onClose={() => setBrideIdx(null)} />
+      </section>
+
+      {/* Blessing — three pillars: quote · hymn · rite */}
+      <section className="bless" id="blessing">
+        <div className="bless-inner">
+          <div className="eyebrow">{t.blessing.eyebrow}</div>
+          <p className="bless-quote">
+            <span className="bless-open">{t.blessing.open}</span>
+            {t.blessing.body}
+            <span className="bless-close">{t.blessing.close}</span>
+          </p>
+          <div className="bless-sig">— {t.blessing.sig}</div>
+        </div>
+
+        <Ornament color="rgba(43, 21, 100, 0.45)" />
+
+        <div className="hymn">
+          <div className="eyebrow">{t.hymn.eyebrow}</div>
+          <h3 className="hymn-title">{t.hymn.title}</h3>
+          <div className="hymn-text">
+            {t.hymn.stanzas.map((s, i) => (
+              <p key={i} className="hymn-stanza">{s}</p>
+            ))}
+            <p className="hymn-coda">{t.hymn.coda}</p>
+          </div>
+          <div className="hymn-attr">{t.hymn.attribution}</div>
+        </div>
+
+        <Ornament color="rgba(43, 21, 100, 0.45)" />
+
+        <div className="rite">
+          <header className="rite-h">
+            <div className="eyebrow">{t.process.eyebrow}</div>
+            <h3 className="rite-title">
+              <em>{t.process.title_a}</em>
+              <span className="alt"> {t.process.title_b}</span>
+            </h3>
+            <p className="lede" style={{ margin: '20px auto 0' }}>{t.process.sub}</p>
+          </header>
+          <ol className="rite-steps">
+            {t.process.steps.map((step) => (
+              <li key={step.num} className="rite-step">
+                <div className="rite-step-num">№ {step.num}</div>
+                <h4 className="rite-step-name">{step.name}</h4>
+                <p className="rite-step-body">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="tst">
+        <header className="tst-h">
+          <div className="eyebrow">{t.testimonials.eyebrow}</div>
+          <Ornament />
+        </header>
+        <div className="tst-grid">
+          {t.testimonials.items.map((it, i) => (
+            <article key={i} className="tst-card">
+              <p className="tst-q">{it.q}</p>
+              <div className="tst-who">{it.who}</div>
+              <div className="tst-where">{it.where}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Inquiry */}
+      <InquiryForm />
+
+      {/* Contact */}
+      <section className="ctc" id="contact">
+        <header className="ctc-h">
+          <div className="eyebrow">{t.contact.eyebrow}</div>
+          <h2>
+            <em>{t.contact.title_a}</em>
+            <span className="alt">{t.contact.title_b}</span>
+          </h2>
+          <Ornament color="rgba(214, 203, 233, 0.6)" />
+        </header>
+        <div className="ctc-grid">
+          <div className="ctc-card">
+            <div className="ctc-label">{t.contact.delivery_l}</div>
+            <div className="ctc-value">{t.contact.delivery_v}</div>
+            <div className="ctc-note">{t.contact.delivery_n}</div>
+          </div>
+          <div className="ctc-card">
+            <div className="ctc-label">{t.contact.location_l}</div>
+            <div className="ctc-value">{t.contact.location_v}</div>
+          </div>
+          <div className="ctc-card">
+            <div className="ctc-label">{t.contact.phone_l}</div>
+            <div className="ctc-value">{t.contact.phone_v}</div>
+          </div>
+          <div className="ctc-card">
+            <div className="ctc-label">{t.contact.hours_l}</div>
+            <div className="ctc-value">{t.contact.hours_v}</div>
+          </div>
+        </div>
+        <div className="ctc-cta">{t.contact.cta}</div>
+      </section>
+
+      {/* Footer */}
+      <footer className="ftr">
+        <div className="ftr-brand"><em>Violeta</em> · {t.foot.tag}</div>
+        <div className="ftr-copy">{t.foot.copy}</div>
+      </footer>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <LangProvider>
+      <Site />
+    </LangProvider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
