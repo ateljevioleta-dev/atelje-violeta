@@ -96,7 +96,7 @@ const BRIDES = [
   },
   {
     id: "bride-4",
-    src: "assets/bride-4.jpg",
+    src: "assets/bride-4.png",
     sr: { caption: "Bele ruže", place: "Atelje · 2024" },
     en: { caption: "White roses",  place: "Atelier · 2024" },
   },
