@@ -84,7 +84,7 @@ const BRIDES = [
   },
   {
     id: "bride-2",
-    src: "assets/bride-2.png",
+    src: "assets/bride-2.jpg",
     sr: { caption: "Orhideje i ruže", place: "Manastir · 2024" },
     en: { caption: "Orchids & roses", place: "Monastery · 2024" },
   },
@@ -96,7 +96,7 @@ const BRIDES = [
   },
   {
     id: "bride-4",
-    src: "assets/bride-4.png",
+    src: "assets/bride-4.jpg",
     sr: { caption: "Bele ruže", place: "Atelje · 2024" },
     en: { caption: "White roses",  place: "Atelier · 2024" },
   },
