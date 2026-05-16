@@ -79,8 +79,8 @@ const BRIDES = [
   {
     id: "bride-1",
     src: "assets/bride-1.jpg",
-    sr: { caption: "Beli ljiljani", place: "Crkva · 2024" },
-    en: { caption: "White lilies",  place: "Church · 2024" },
+    sr: { caption: "Bele Kale", place: "Crkva · 2024" },
+    en: { caption: "White Callas",  place: "Church · 2024" },
   },
   {
     id: "bride-2",

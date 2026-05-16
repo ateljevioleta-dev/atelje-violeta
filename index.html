@@ -135,7 +135,7 @@ input, textarea, select { font-family: inherit; color: inherit; }
   position: sticky; top: 0; z-index: 30;
   display: flex; align-items: center;
   padding: 18px var(--pad-x);
-  background: color-mix(in oklab, var(--cream), transparent 6%);
+  background: rgba(250, 247, 251, 0.94);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line-soft);
 }
@@ -1197,7 +1197,7 @@ const I18N = {
       steps: [
         { num: 'I', name: 'Lični blagoslov', body: 'Violeta sama, u tišini ateljea, izgovara molitvu i daje lični blagoslov vama, vašem partneru, i vašem zajedničkom putu.' },
         { num: 'II', name: 'Pevana himna', body: 'Dok se buket pravi, Himna ljubavi (1. Kor. 13) se peva i izgovara nad cvećem — svaka latica utkana je sa rečima ljubavi.' },
-        { num: 'III', name: 'Sveštenički blagoslov', body: 'Pre nego što buket bude predat mladi, sveštenik daje krajnji blagoslov u skladu sa pravoslavnim molitvenim obredom.' },
+        { num: 'III', name: 'Završni blagoslov', body: 'Odobren od strane duhovnog Oca — uz svaki buket koji nastaje u ateljeu, tiho se izgovara Isusova molitva, utkana u svaku laticu kao večna zaštita.' },
       ],
     },
     testimonials: {
@@ -1311,7 +1311,7 @@ const I18N = {
       steps: [
         { num: 'I', name: 'Personal blessing', body: 'Violeta herself, in the silence of the atelier, speaks the prayer and gives a personal blessing to you, your partner, and the path you share.' },
         { num: 'II', name: 'Sung hymn', body: 'As the bouquet is built, the Hymn of Love (1 Cor. 13) is sung and spoken over the flowers — every petal woven with words of love.' },
-        { num: 'III', name: 'Priestly blessing', body: 'Before the bouquet is handed to the bride, an Orthodox priest gives the final blessing in accordance with the Orthodox Christian prayer rite.' },
+        { num: 'III', name: 'Final blessing', body: 'Given with the approval of a spiritual father — as every bouquet is made, the Jesus Prayer is quietly spoken over it, woven into each petal as an eternal protection.' },
       ],
     },
     testimonials: {
@@ -1409,7 +1409,7 @@ function PetalCursor({ color = 'rgba(154, 135, 196, 0.55)' }) {
       if (count > 16) return;
       count++;
       const x = e.clientX;
-      const y = e.clientY + window.scrollY;
+      const y = e.clientY;
       const el = document.createElement('span');
       el.className = 'petal';
       const size = 5 + Math.random() * 8;
@@ -1428,7 +1428,7 @@ function PetalCursor({ color = 'rgba(154, 135, 196, 0.55)' }) {
   }, [color]);
   return (
     <div ref={ref} aria-hidden="true"
-      style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }} />
+      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 1, overflow: 'hidden' }} />
   );
 }
 
