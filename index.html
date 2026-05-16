@@ -1433,60 +1433,26 @@ function PetalCursor({ color = 'rgba(154, 135, 196, 0.55)' }) {
 }
 
 function useHymn() {
-  const ctxRef = React.useRef(null);
-  const masterRef = React.useRef(null);
-  const nodesRef = React.useRef([]);
+  const audioRef = React.useRef(null);
   const [on, setOn] = React.useState(false);
 
-  const start = () => {
-    if (ctxRef.current) return;
-    const AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
-    const ctx = new AC();
-    ctxRef.current = ctx;
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.connect(ctx.destination);
-    masterRef.current = master;
-    const freqs = [196.0, 261.63, 311.13, 392.0];
-    freqs.forEach((f, i) => {
-      const osc = ctx.createOscillator();
-      osc.type = i % 2 ? 'sine' : 'triangle';
-      osc.frequency.value = f;
-      const g = ctx.createGain();
-      g.gain.value = 0.06 - i * 0.008;
-      const lfo = ctx.createOscillator();
-      lfo.frequency.value = 0.07 + i * 0.03;
-      const lfoG = ctx.createGain();
-      lfoG.gain.value = 0.4 + i * 0.2;
-      lfo.connect(lfoG).connect(osc.detune);
-      osc.connect(g).connect(master);
-      osc.start(); lfo.start();
-      nodesRef.current.push(osc, lfo);
-    });
-  };
-
-  const fade = (to, dur = 1.2) => {
-    const ctx = ctxRef.current;
-    if (!ctx || !masterRef.current) return;
-    const m = masterRef.current.gain;
-    m.cancelScheduledValues(ctx.currentTime);
-    m.setValueAtTime(m.value, ctx.currentTime);
-    m.linearRampToValueAtTime(to, ctx.currentTime + dur);
-  };
-
   const toggle = () => {
-    setOn((prev) => {
-      const next = !prev;
-      if (next) { start(); ctxRef.current && ctxRef.current.resume && ctxRef.current.resume(); fade(0.8, 1.4); }
-      else { fade(0, 0.9); }
-      return next;
-    });
+    if (!audioRef.current) {
+      const audio = new Audio('assets/hymn.mp3');
+      audio.loop = true;
+      audio.volume = 0.55;
+      audioRef.current = audio;
+    }
+    if (!on) {
+      audioRef.current.play().catch(() => {});
+    } else {
+      audioRef.current.pause();
+    }
+    setOn((prev) => !prev);
   };
 
   React.useEffect(() => () => {
-    nodesRef.current.forEach((n) => { try { n.stop(); } catch {} });
-    try { ctxRef.current && ctxRef.current.close(); } catch {}
+    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
   }, []);
 
   return { on, toggle };
