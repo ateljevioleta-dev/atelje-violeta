@@ -1267,7 +1267,7 @@ const I18N = {
       intl_v: 'Rusija · Crna Gora · Bosna i Hercegovina · Makedonija · Hrvatska · Slovenija · SAD · EU · UK',
       intl_n: 'Po dogovoru — konsultacija obavezna.',
       location_l: 'Atelje', location_v: 'Beograd, Srbija',
-      phone_l: 'Telefon', phone_v: '063 807 3321',
+      phone_l: 'Telefon', phone_v: '+381 63 807 3321',
       hours_l: 'Termini', hours_v: 'Po dogovoru · pon — sub',
       cta: 'Javite se, tu sam za vas.',
     },
@@ -1379,7 +1379,7 @@ const I18N = {
       intl_v: 'Russia · Montenegro · Bosnia & Herzegovina · Macedonia · Croatia · Slovenia · USA · EU · UK',
       intl_n: 'By arrangement — consultation required.',
       location_l: 'Atelier', location_v: 'Belgrade, Serbia',
-      phone_l: 'Phone', phone_v: '063 807 3321',
+      phone_l: 'Phone', phone_v: '+381 63 807 3321',
       hours_l: 'Hours', hours_v: 'By appointment · Mon – Sat',
       cta: 'Reach out — I am here for you.',
     },
@@ -1492,7 +1492,7 @@ const I18N = {
       intl_v: 'Россия · Черногория · Босния и Герцеговина · Македония · Хорватия · Словения · США · ЕС · Великобритания',
       intl_n: 'По договорённости — консультация обязательна.',
       location_l: 'Ателье', location_v: 'Белград, Сербия',
-      phone_l: 'Телефон', phone_v: '063 807 3321',
+      phone_l: 'Телефон', phone_v: '+381 63 807 3321',
       hours_l: 'Часы работы', hours_v: 'По записи · пн — сб',
       cta: 'Напишите мне — я здесь для вас.',
     },
@@ -2251,6 +2251,15 @@ function Site() {
               </a>
             </div>
           </div>
+          <div className="ctc-card">
+            <div className="ctc-label">E-mail</div>
+            <div className="ctc-value">
+              <a href="mailto:ateljevioleta@gmail.com"
+                style={{ color: 'inherit', textDecoration: 'none' }}>
+                ateljevioleta@gmail.com
+              </a>
+            </div>
+          </div>
         </div>
         <div className="ctc-cta">{t.contact.cta}</div>
       </section>
@@ -2266,6 +2275,13 @@ function Site() {
             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
           </svg>
           @ateljevioleta
+        </a>
+        <a href="mailto:ateljevioleta@gmail.com" className="ftr-insta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <polyline points="2,4 12,13 22,4"/>
+          </svg>
+          ateljevioleta@gmail.com
         </a>
         <div className="ftr-copy">{t.foot.copy}</div>
       </footer>
